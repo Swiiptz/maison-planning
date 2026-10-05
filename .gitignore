@@ -6,3 +6,6 @@ dist/
 .sites-runtime/
 coverage/
 /apercu.html
+
+.tools/
+*-debug.log

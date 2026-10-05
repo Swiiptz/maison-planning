@@ -20,13 +20,24 @@ L'adresse du serveur local ne sera pas accessible depuis un téléphone extérie
 
 ## Fonctionnalités réalisées
 
-- Agenda jour / semaine / mois et récapitulatif du jour avec retards.
+- Agenda jour / semaine / mois ; dans Aujourd'hui, choix Jour / Semaine pour consulter ses tâches et ses actions dans les séances partagées, avec progression circulaire, temps restant et retards repliés.
+- Onglet Stats : réalisations par personne / pièce / tâche / fréquence, activité quotidienne, séries, ponctualité, historique consultable et export CSV, avec petites distinctions humoristiques. Les durées restent estimées, les données inconnues sont signalées.
+- Filtres repliables sur téléphone, pastilles actives supprimables, duplication de tâches et synthèse de récurrence dans l'éditeur.
 - 187 actions issues des deux PDF, dans 11 pièces / espaces et 5 catégories transversales.
 - Répétitions quotidiennes, hebdomadaires, toutes les deux semaines, mensuelles et tous les deux mois ; tâches ponctuelles possibles.
+- Choix d'un ou plusieurs jours de la semaine pour les routines quotidiennes, hebdomadaires et toutes les deux semaines, avec raccourcis « Tous » et « Lun–Ven ».
 - Fréquence indiquée par la bordure et son libellé ; pièce identifiée par un badge indépendant.
 - Affectations aux membres ; modification d'une échéance ou des suivantes.
 - Séances avec checklist, séparation d'une action, regroupement désactivable.
+- Titres des séances barrés lorsque toutes leurs actions sont terminées, dans l'agenda et le détail.
+- Éditeur de sous-tâches facultatives : ajout, suppression et réorganisation des étapes, avec progression par occurrence et validation indépendante de la tâche principale. Les listes peuvent aussi être préparées pour les tâches sans échéance.
+- Report discret depuis les cartes, avec choix de date, avertissement en cas de doublon et annulation.
+- Regroupement modéré par pièce et préférence d’alternance dans les propositions pour le foyer ; participants configurables et auteur de la dernière validation pris en compte.
+- Équilibrage semaine / mois : proposition avant / après, jours fixes et quotidiennes protégés, estimation explicite des durées inconnues, application après confirmation et annulation.
+- Durée estimée facultative en minutes, filtres et tris par durée dans Aujourd'hui, Agenda et Tâches ; estimation du temps restant avec signalement des durées manquantes.
+- Volet de navigation gauche et panneau calendrier repliables pour laisser plus de place au planning.
 - Déplacement par poignée à la souris ou au toucher ; déplacement par formulaire disponible pour le clavier et les autres modes d'accès.
+- Lors d'un déplacement vers un jour contenant déjà la même tâche, avertissement et proposition de regroupement : une seule occurrence reste affichée après confirmation. Le responsable et le statut du jour cible sont conservés, ainsi que les prochaines répétitions ; les occurrences absorbées restent liées dans l'export. Le déplacement peut être annulé tant que le planning n'a pas changé depuis.
 - Création, modification et archivage des tâches ; ajout et renommage des membres, couleurs de pièces personnalisables.
 - Export / import métier versionné ; contrôle des données avant import.
 - Connexion Google, création d'un foyer et invitations réservées à l'email du compte, via Firebase.
@@ -93,3 +104,13 @@ La base et l'authentification passent par des services dédiés. Les écrans ne 
 La future solution PostgreSQL / Keycloak aura ses adaptateurs derrière ces mêmes services. La migration demandera une reprise des données et des comptes ainsi qu'une API vers PostgreSQL. Voir [l'architecture et la migration](docs/ARCHITECTURE_ET_MIGRATION.md) et le [cahier des charges](docs/CAHIER_DES_CHARGES.md).
 
 Références : [SDK Firebase web officiel](https://firebase.google.com/docs/web/alt-setup), [connexion Google](https://firebase.google.com/docs/auth/web/google-signin), [règles Firestore](https://firebase.google.com/docs/firestore/security/rules-conditions).
+
+### Comptes et familles avant publication
+
+La version connectée propose Google, plusieurs familles par compte et une favorite ouverte par défaut. Les invitations sont réservées à une adresse vérifiée et valables sept jours pour une seule utilisation. Le sélecteur est accessible depuis la navigation PC et les réglages sur téléphone. L'aperçu hors ligne reste une démonstration locale et ne connecte aucun compte.
+
+Tests des règles : démarrer l'émulateur Firestore pour `demo-maison-planning` (Java 21 minimum), puis exécuter `npm run test:firestore`. Les tests utilisent uniquement ce projet fictif sur localhost.
+
+Vérification du projet réel du 5 octobre 2026 : la requête de liste des bases renvoie 403 avec « Cloud Firestore API ... not been used ... or ... disabled ». Il faut confirmer/créer Firestore dans la console du projet `mmsplann`, puis publier les règles locales validées et activer/vérifier Google dans Authentication avant le déploiement du site.
+
+État suivant : l'utilisateur confirme la création de Firestore, la publication des règles, Google activé et les domaines autorisés ajoutés. La CLI n'a pas les permissions administratives ; validation du parcours réel à effectuer sur le site. GitHub Pages renvoyait encore 404 avant cette publication ; sélectionner GitHub Actions dans Settings > Pages du dépôt si le déploiement échoue à configure-pages.

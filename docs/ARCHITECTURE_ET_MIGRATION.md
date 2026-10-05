@@ -99,3 +99,27 @@ La V1 implémente uniquement les adaptateurs Firebase. Les contrats et l'export 
 - Tester les refus d'accès côté backend ; un filtre d'interface ne constitue pas ce test.
 
 Références techniques : [types Firestore](https://firebase.google.com/docs/firestore/manage-data/data-types), [OpenID Connect avec Keycloak](https://www.keycloak.org/securing-apps/oidc-layers).
+
+## Statistiques dérivées
+
+`app/domain/statistics.js` calcule les indicateurs à partir de l’état métier déjà chargé par PlanningService. Aucun appel supplémentaire à Firestore et aucun service analytique externe ne sont nécessaires. L’interface filtre et présente ces résultats, et exporte l’historique sélectionné. `completedBy` identifie l’auteur de la réalisation et `completedAt` sa date ; l’absence de ces champs reste explicitement inconnue ou estimée. Les statistiques incluent les définitions archivées et réunissent les versions par `seriesId`. Elles décrivent les validations et exceptions encore conservées dans l’état, sans constituer un journal immuable de chaque modification. Une migration vers PostgreSQL conserve donc les mêmes calculs et les mêmes tests.
+
+## Extension prévue : comptes multi-famille
+
+Extension implémentée localement avant déploiement ; configuration Firebase réelle à confirmer. Un compte possède plusieurs appartenances ; chaque appartenance relie le compte à un membre métier et à un rôle dans une famille. La préférence de famille favorite est personnelle et ne confère aucun droit.
+
+Contrats à faire évoluer : lister les familles autorisées, ouvrir une famille explicitement, créer une famille, rejoindre par invitation, définir la favorite. Le service de planning reçoit toujours un seul identifiant de famille et un seul identifiant de membre. Un changement désabonne l'ancien adaptateur et efface les actions d'interface en attente.
+
+Dans Firestore, les entités restent sous `households/{householdId}`. Le profil personnel et les appartenances doivent remplacer le document d'identité qui contient actuellement un seul `householdId`. Les règles valident chaque appartenance et les transitions d'invitation ; une liste affichée dans l'interface ne constitue jamais une autorisation. Prévoir des invitations expirantes, consommées atomiquement et réservées au destinataire vérifié.
+
+La migration PostgreSQL reprendra les tables de comptes métier, familles, appartenances, préférences et invitations, avec les mêmes identifiants de membres. Keycloak fournira l'identité de connexion ; l'appartenance aux familles restera une règle métier de l'application. La migration des comptes nécessitera un rattachement vérifié distinct de la migration des données.
+
+### Persistance multi-famille actuelle
+
+- `identities/{uid}/memberships/{householdId}` : index privé des appartenances (`householdId`, `memberId`), validé contre les droits réels du foyer.
+- `identities/{uid}.favoriteHouseholdId` : préférence personnelle, uniquement pour une famille autorisée. Le rattachement unique historique reste lisible sans être écrasé.
+- `households/{hid}.access` : autorisations effectives vérifiées par les règles.
+- `households/{hid}/accountLinks/{memberId}` : liaison immuable à un seul compte, créée atomiquement avec la famille ou l'acceptation d'invitation.
+- `invitations/{token}` : destinataire vérifié, échéance, créateur, date serveur et auteur d'acceptation. Pas de liste publique ni d'envoi automatique d'email.
+
+`npm run test:firestore` exécute les scénarios contre l'émulateur local du projet fictif `demo-maison-planning`. Démarrer au préalable `firebase emulators:start --only firestore --project demo-maison-planning` avec Java 21 ou supérieur. Le script refuse un hôte distant et ne cible jamais la base réelle.

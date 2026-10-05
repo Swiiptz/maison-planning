@@ -1,6 +1,6 @@
 # Cahier des charges — Planning de la maison
 
-Version 0.5 — proposition de cadrage, 5 octobre 2026.
+Version 0.7 — cadrage et améliorations après essais, 5 octobre 2026.
 
 Décision utilisateur : utiliser Firebase pour le stockage avec une contrainte de coût nul. La configuration du compte interviendra après le cadrage.
 
@@ -8,7 +8,17 @@ Précision utilisateur : conserver Firebase pour la V1, en préparant une migrat
 
 Décisions utilisateur : affectation à un membre et à une date dès la V1 ; tâches individuelles et séances avec checklist. Les tâches initiales sont récurrentes selon les fréquences des PDF ; les étapes sans fréquence explicite restent à traiter séparément.
 
-Ce document cadre la réalisation. Une première version locale est maintenant implémentée ; la configuration Firebase et la publication GitHub Pages sont en cours de préparation. Les points indiqués « à décider » restent ouverts.
+Ce document cadre la réalisation. Une première version locale est maintenant implémentée. Le code a été envoyé sur GitHub. Après les essais locaux, l'utilisateur demande maintenant de préparer les comptes, Firestore et le déploiement GitHub Pages. Le fonctionnement multi-famille doit être finalisé avant la publication. Les points indiqués « à décider » restent ouverts.
+
+### Décisions issues du dernier essai
+
+- Conserver le fonctionnement général et l'ergonomie actuels, qui conviennent à l'utilisateur.
+- Corriger la redondance lorsqu'une tâche quotidienne est déplacée sur un jour qui contient déjà la même tâche. Il s'agit d'une collision entre occurrences de la même tâche, pas d'une fusion automatique de titres similaires.
+- Permettre de configurer une liste facultative de sous-tâches à l'intérieur d'une tâche. Cocher toute cette liste ne termine pas la tâche principale.
+- Tester une configuration des tâches regroupée par pièce dans des sections dépliables.
+- Utiliser les durées estimées pour proposer une réorganisation sur une semaine ou un mois, avant confirmation, afin d’alléger les journées chargées.
+- Garder le nom « Maison » et la direction actuelle, tout en explorant davantage de personnalité et d'originalité, avec une attention aux polices et à la lisibilité.
+- Prévoir plus tard un hub permettant de choisir entre le ménage, les repas / recettes et les courses. Ces nouveaux espaces ne sont pas à développer maintenant.
 
 ## 1. Objectif
 
@@ -80,6 +90,10 @@ Exemple : « Nettoyer le lavabo » porte un badge turquoise « Salle de bain » 
 
 - Fournir les tâches issues des deux documents, regroupées par pièce ou catégorie transversale.
 - Créer et modifier une tâche : titre, groupe, description facultative, fréquence, date de départ et responsable habituel.
+- Ajouter une durée estimée facultative configurable en minutes (1 à 1440). Cette estimation sert aux propositions d’équilibrage ; sa saisie ne déclenche pas de déplacement automatique. Ne pas inventer de durée à partir des PDF. Le champ vide signifie « inconnue », jamais zéro minute.
+- Dans Aujourd'hui, Agenda et Tâches, proposer les filtres « 15 min ou moins », « 16 à 30 min », « Plus de 30 min » et « Durée à renseigner », ainsi qu'un tri du plus court au plus long et l'inverse. Dans le catalogue, trier à l'intérieur de chaque pièce. Dans l'agenda, trier les cartes à l'intérieur de chaque jour sans modifier leurs dates ; les séances utilisent la somme de leurs actions. Les durées inconnues ou incomplètes restent en fin de tri.
+- Afficher l'estimation sur les tâches, les séances et leur détail ; afficher le temps restant estimé des tâches filtrées pour le jour ou la période. Additionner les durées des tâches principales, sans ajouter de temps pour le regroupement en séance ni pour les sous-tâches. Si des durées manquent, signaler une estimation partielle (« Au moins… ») et le nombre de durées manquantes.
+- Regrouper la liste de configuration par pièce ou catégorie dans des sections dépliables avec un nombre de tâches. Tester « Tout déplier / Tout replier » et l'ouverture automatique des sections contenant les résultats d'une recherche.
 - Archiver une tâche pour arrêter sa planification future en conservant l'historique.
 - Filtrer et rechercher les tâches par titre, groupe et fréquence.
 - Afficher les tâches dont la fréquence ou la date initiale reste à renseigner dans une liste « À configurer ».
@@ -96,9 +110,35 @@ Exemple : « Nettoyer le lavabo » porte un badge turquoise « Salle de bain » 
 - Garder les tâches sans date dans une liste « À planifier », distincte des tâches en retard.
 - Prévoir une action pour annuler un déplacement accidentel.
 
+### Collisions lors des déplacements — correction prioritaire
+
+- Cas signalé : déplacer une occurrence quotidienne sur un jour contenant déjà une occurrence de la même tâche affiche deux fois cette tâche.
+- Un déplacement par glisser-déposer, formulaire ou séance ne doit pas laisser deux actions à réaliser pour la même tâche sur le même jour, ni doubler les compteurs.
+- Identifier les collisions par l'identité métier de la tâche et le jour cible. Deux tâches distinctes portant le même titre ne sont pas automatiquement fusionnées.
+- Décision utilisateur : proposer de regrouper les deux occurrences, avec un avertissement et une confirmation explicite avant toute modification. Permettre d'annuler pour conserver le planning tel qu'il était avant le déplacement.
+- L'avertissement explique que cette tâche existe déjà au jour cible et que le regroupement ne laissera qu'une action à réaliser ce jour-là. Exemple de message : « Cette tâche est déjà prévue ce jour-là. Regrouper les deux occurrences en une seule ? »
+- Règle retenue pour la première implémentation : conserver l'occurrence du jour cible, son responsable et son statut, même si elle est déjà terminée. Enregistrer les occurrences absorbées avec un lien de regroupement, sans les compter ni les afficher comme actions supplémentaires. L'avertissement présente ces conséquences. Les autres actions d'une séance sont déplacées normalement.
+- Permettre d'annuler le déplacement confirmé, regroupement compris, tant que le planning n'a pas été modifié entre-temps. Le traitement des progressions de sous-tâches différentes sera précisé lors de leur implémentation.
+- Conserver les prochaines échéances de la série et appliquer le même comportement sur téléphone et PC.
+
+### Sous-tâches facultatives à l'intérieur d'une tâche
+
+- Permettre d'ajouter, modifier, ordonner et retirer une liste de sous-tâches dans la configuration d'une tâche. Une tâche peut fonctionner sans cette liste.
+- Exemple : « Réunir le matériel » peut contenir une liste personnalisée de matériel à préparer.
+- Les cases de cette liste servent au suivi interne. Même lorsque toutes sont cochées, la tâche principale reste à faire jusqu'à sa validation explicite.
+- Ces sous-tâches sont distinctes des actions planifiables regroupées en séance ; elles n'ajoutent pas de tâches au compteur du planning.
+- Enregistrer leur progression pour l'occurrence concernée, sans valider les sous-tâches des prochaines répétitions.
+- Éditeur amélioré : une ligne de saisie par sous-tâche, bouton « Ajouter une étape », suppression et commandes pour monter / descendre une ligne, y compris pour une tâche « À configurer — sans échéance ». La liste est facultative et ordonnée ; ses cases sont accessibles dans le détail d'une occurrence planifiée. Retirer les lignes vides à l'enregistrement.
+- Les deux validations sont indépendantes : cocher / décocher la tâche principale ne change pas les cases internes, et modifier les cases internes ne change pas le statut principal, même après réalisation de la tâche.
+- Une modification de tâche récurrente conserve les définitions passées par le mécanisme existant de nouvelle série. L'éditeur conserve l'identifiant d'une sous-tâche lors d'un renommage ou d'un changement d'ordre ; une nouvelle ligne crée un nouvel identifiant. Les progressions, durées et listes sont conservées dans l'export métier.
+
 ### Répétition des tâches
 
 - Prendre en charge les cinq fréquences des documents. Le catalogue initial est récurrent ; permettre aussi de créer une tâche ponctuelle si nécessaire.
+- Permettre de choisir un ou plusieurs jours parmi lundi à dimanche dans la configuration d'une routine quotidienne, hebdomadaire ou toutes les deux semaines. Présenter sept boutons de sélection et les raccourcis « Tous » / « Lun–Ven », avec un récapitulatif lisible. Exiger au moins un jour pour ces routines.
+- Pour la fréquence quotidienne ou hebdomadaire, planifier uniquement les jours sélectionnés à partir de la date de départ. Pour toutes les deux semaines, utiliser les jours sélectionnés une semaine sur deux, en ancrant les semaines du lundi au dimanche sur la semaine de la date de départ. Ne pas créer d'échéance antérieure à cette date.
+- Conserver les répétitions mensuelles, bimestrielles et ponctuelles basées sur la date de départ ; désactiver le sélecteur hebdomadaire et expliquer ce fonctionnement pour ces fréquences. Les tâches existantes sans liste de jours conservent leur calcul actuel.
+- Stocker les jours sous forme de liste métier `weekdays` (0 = lundi, 6 = dimanche), incluse dans l'export. Une modification de configuration utilise la séparation des séries pour préserver le passé et les réalisations ; un déplacement ponctuel conserve les jours des prochaines échéances.
 - Générer les occurrences à partir d'une date de départ explicite.
 - Une répétition mensuelle suit le calendrier : le 31 devient le dernier jour des mois plus courts, puis revient au 31 lorsqu'il existe. Même principe pour tous les deux mois.
 - Les répétitions toutes les deux semaines suivent un intervalle de 14 jours, à partir de la date choisie.
@@ -135,7 +175,8 @@ Exemple : « Nettoyer le lavabo » porte un badge turquoise « Salle de bain » 
 - Les actions d'une séance héritent de son responsable sauf affectation explicite à un autre membre.
 - Déplacer une séance déplace les actions qu'elle contient pour cette occurrence ; leurs répétitions futures restent inchangées. Une action déjà terminée conserve sa date de réalisation et son historique.
 - Une action présente dans une séance ne doit pas aussi produire une seconde occurrence indépendante pour la même échéance.
-- La progression d'une séance repose sur ses étapes ; sa clôture ne doit pas valider silencieusement les actions non cochées.
+- La progression d'une séance repose sur ses tâches principales. Décision utilisateur : ajouter une case explicite pour terminer toutes les tâches de cette séance à cette date ; décocher remet ses tâches à faire. Les prochaines répétitions et les sous-tâches internes restent inchangées. Cocher la séance conserve les informations de réalisation des actions déjà terminées. Cette commande porte sur toute la séance, même si un filtre masque certaines actions.
+- Lorsque toutes ses actions sont faites, barrer le titre de la séance dans l'agenda et son détail, y compris en vue mois. Décocher une action retire cet état. Les sous-tâches internes ne participent pas à ce calcul : le statut explicite des tâches principales fait foi.
 - Les compteurs des récapitulatifs comptent les actions à réaliser ; une séance est un regroupement et n'ajoute pas une tâche supplémentaire au total.
 - Exemple : la séance « Cuisine » peut être hebdomadaire, mais « Nettoyer le four » ne rejoint la checklist que lorsque son échéance tous les deux mois est due. Terminer cette action ne valide pas son échéance suivante.
 
@@ -152,6 +193,57 @@ Exemple : « Nettoyer le lavabo » porte un badge turquoise « Salle de bain » 
 Sur ordinateur, la vue semaine peut présenter sept colonnes et un panneau de tâches à planifier. Sur téléphone, privilégier une liste par jour avec navigation dans la semaine ; la grille mensuelle sert de repère et ouvre le détail d'un jour.
 
 L'interface doit rester lisible à partir de 360 px de large, utiliser des zones tactiles confortables, afficher les libellés longs sans perdre leur sens et rendre les principaux gestes accessibles au clavier. Les informations doivent rester compréhensibles sans distinguer les couleurs.
+
+### Direction visuelle à explorer
+
+Conserver le nom « Maison », l'ambiance claire et chaleureuse et les repères actuels. Apporter davantage de personnalité par des détails graphiques, des icônes ou illustrations discrètes et une typographie cohérente. Les choix précis restent à tester ; aucun changement complet d'identité n'est décidé.
+
+Privilégier des textes et commandes lisibles sur téléphone comme sur PC, une hiérarchie claire et des contrastes suffisants. Garder les éléments décoratifs au service de la lecture et des actions. La future identité doit convenir à l'ensemble du foyer, y compris aux espaces repas et courses.
+
+Sur téléphone, le bouton d'ajout de tâche est circulaire, vert doux et aligné avec le titre, avec une cible tactile de 44 px et un léger retour à l'appui. Son nom accessible reste « Nouvelle tâche » ; sur ordinateur, conserver le bouton avec son libellé.
+
+### Ajustements à essayer — récapitulatifs et accès rapides
+
+- Dans l'onglet Aujourd'hui uniquement, conserver la carte d'origine avec son cercle de pourcentage, le nombre d'actions réalisées et une estimation discrète du temps restant. Un simple choix « Aujourd'hui » / « Cette semaine » affiche les tâches et séances du jour actuel ou de la semaine en cours, présentées par journée. Ouvrir le jour courant par défaut. Ne pas ajouter ce bloc à la grille principale de l'agenda, ni de navigation vers d'autres dates.
+- Le récapitulatif porte uniquement sur le jour actuel, ou sur la semaine en cours du lundi au dimanche. Le membre connecté est imposé dans Aujourd’hui ; les filtres de pièce, fréquence et durée sont pris en compte ; masquer les tâches terminées ne doit pas retirer les réalisations du récapitulatif. Les durées inconnues sont signalées plutôt que comptées comme zéro.
+- Après essai, supprimer le bandeau avec barre de progression, les sept repères de navigation et le détail par personne. Revenir au cercle de pourcentage et conserver uniquement le choix du jour actuel ou de la semaine en cours, sans changer la date ni la vue de l'agenda.
+- Dans Aujourd'hui, afficher la semaine en cours en grille avec une colonne par jour du lundi au dimanche et ses tâches / séances dessous. Sur les écrans étroits, permettre le défilement horizontal des colonnes, sans faire déborder la page. Conserver le cercle de pourcentage et la liste habituelle pour le jour actuel.
+- Aujourd'hui est une vue personnelle : montrer uniquement les occurrences assignées au membre connecté, y compris ses retards, son pourcentage et son temps estimé. Dans les séances partagées, le détail, les compteurs et la case de validation portent uniquement sur ses actions ; terminer la séance depuis cette vue ne coche pas les actions des autres. Retirer le filtre de membre et le bouton bascule « Mes tâches » de cette vue. L'agenda conserve l'accès aux tâches du foyer et son filtre par membre.
+- Sur téléphone, replier les options derrière « Filtrer ». Garder les filtres actifs visibles sous forme de pastilles supprimables et proposer une réinitialisation. Sur PC, conserver les filtres directement accessibles.
+- Dans l'éditeur, afficher une phrase de synthèse de la récurrence et de la durée facultative avant d'enregistrer. Actualiser cette phrase lorsque les jours, la fréquence, la date de départ ou la durée changent ; conserver la règle de date pour les récurrences mensuelles.
+- Distinguer discrètement les séances des tâches individuelles avec un fond légèrement teinté et une petite icône, sans agrandir les indications de responsable.
+- Ajouter « Dupliquer » dans le catalogue : ouvrir une nouvelle tâche modifiable reprenant pièce, responsable, consignes, récurrence, durée et sous-tâches. Utiliser une nouvelle date de départ, de nouveaux identifiants et aucun historique de réalisation ; la copie n'est pas automatiquement intégrée à la séance d'origine. Ne rien créer avant la validation du formulaire.
+- Réduire les notifications de réussite ordinaires à un message clair, discret et bref. Garder les erreurs et les notifications avec une action d'annulation plus visibles et plus longtemps.
+- Restaurer la présentation habituelle de l'agenda : grille PC inchangée, estimation du temps en haut et compteur de la période dans le panneau calendrier repliable. Réserver le nouveau sélecteur Jour / Semaine à Aujourd'hui. Les retards affichés dans Aujourd'hui restent séparés du programme et ne dupliquent pas les actions de la période choisie.
+
+### Reports, configuration et équilibrage — première implémentation à essayer
+
+- Dans les séances personnelles, afficher « Mes actions · 2/3 » ; nommer la case « Terminer mes actions » pour préciser qu'elle ne valide pas celles des autres membres.
+- Ajouter un bouton discret de report sur les cartes non terminées : « Demain » (ou « Le lendemain » pour une date future) et choix d'une date. Utiliser le même avertissement de collision, la même confirmation de regroupement et la même annulation que le glisser-déposer. Seules les actions encore à faire sont reportées, sans modifier les prochaines répétitions.
+- Conserver les champs principaux, les jours de récurrence et la durée directement accessibles. Regrouper consignes et sous-tâches dans une section facultative dépliable, repliée par défaut. Regrouper les retards dans « À rattraper », replié par défaut avec leur nombre.
+- Retirer le bandeau « Aperçu interactif / Données d'exemple locales » et « Exemple local » du planning. Le mode de stockage reste expliqué dans Réglages : retirer le bandeau ne connecte pas l'application à Firebase.
+- Ajouter « Équilibrer » dans Aujourd'hui et Agenda : semaine ou mois complet correspondant à la date affichée. Dans Aujourd'hui, limiter la proposition au membre connecté ; dans Agenda, permettre de choisir le foyer ou un membre. Les autres filtres de l'écran ne limitent pas la proposition, ce qui est indiqué dans le formulaire.
+- Répartir le temps estimé des actions encore à faire entre les jours ; à gain de temps équivalent, réduire l'écart du nombre d'actions. Le total de tâches et de temps estimé ne diminue pas. L'algorithme propose une amélioration, sans promettre un optimum mathématique.
+- Protéger les actions quotidiennes, les tâches marquées « Jour fixe », les actions terminées et les dates passées. Respecter les jours de semaine sélectionnés, les bornes de la série, l'ordre des occurrences et l'absence de doublons. Les actions hebdomadaires / bimensuelles restent dans leur semaine d'origine, même en mode mois.
+- Conserver ensemble les actions déplaçables d'une même séance à une date ; les actions fixes ou attribuées à un autre membre restent en place. Les prochaines répétitions et les progressions de sous-tâches sont conservées ; les responsables restent identiques hors des changements explicitement proposés dans la portée « Tout le foyer ».
+- Pour les durées inconnues, proposer explicitement une hypothèse configurable (15 min par défaut), montrer le nombre d'actions concernées et ne pas enregistrer cette hypothèse comme durée de la tâche.
+- Montrer l'avant / après par journée, les charges maximales et la liste des reports. N'écrire aucun changement avant « Appliquer les reports ». Appliquer les positions finales en une seule opération, sans fusion, et refuser une proposition périmée si le planning a changé. Proposer une annulation immédiate, protégée contre les modifications ultérieures.
+- Vérifier les parcours au clavier et les cibles tactiles dans le code. L'essai sur un téléphone physique reste à effectuer avant publication.
+
+### Fluidité des interactions — retenue après essai
+
+- Animer discrètement l'ouverture et la fermeture des fenêtres, y compris la fermeture par Échap et clic hors de la fenêtre. Rendre le focus à la commande d'origine lorsque celle-ci est toujours disponible.
+- Animer les sections dépliables sans reconstruire l'ensemble de la page ; conserver leur état pendant la modification des tâches.
+- Préserver autant que possible le focus, la sélection dans un champ, le défilement de la page et celui de la semaine lors des actualisations du planning.
+- Montrer un indicateur d'enregistrement sur le bouton utilisé et empêcher sa soumission répétée pendant l'opération.
+- Adoucir les retours des boutons, les progressions et les notifications ; renforcer le repère du jour cible pendant un déplacement.
+- Garder des animations courtes (environ 140 à 200 ms) et les désactiver lorsque l'utilisateur demande une réduction des mouvements. Vérifier le ressenti réel sur téléphone et PC.
+- Personnaliser également les menus de sélection (membres, pièces, fréquences et formulaires) : liste arrondie, option choisie marquée d'une coche, couleurs des pièces / fréquences et ouverture discrète. Conserver le clavier, la fermeture par Échap et les valeurs des formulaires.
+- Pour la recherche, remplacer le cadre de focus carré autour du texte par un contour arrondi sur l'ensemble du champ, sans retirer le repère de focus.
+- Permettre de replier le volet de navigation gauche en une barre d'icônes accessible, puis de le rouvrir. Permettre également de masquer / réafficher le panneau calendrier et récapitulatif pour donner plus de place à l'agenda. Ces choix ne modifient pas les données du foyer.
+- Après essai, revenir à la grille PC précédente à la demande de l'utilisateur : sept colonnes de largeur habituelle, cartes sans troncature des titres, défilement de la page plutôt qu'une zone verticale limitée. Conserver les durées estimées et les autres fonctionnalités ; la variante avec colonnes élargies, en-têtes fixes et cartes compactes n'est pas retenue.
+- Renforcer les affectations : noms visibles et compte d'actions par membre sur les cartes de séance, synthèse « Qui fait quoi » dans leur détail et responsable clairement marqué sur chaque action. Éviter le seul libellé « 2 responsables » qui ne précise pas la répartition.
+- Replier la navigation sans reconstruire ses éléments, avec une transition de largeur et un effacement progressif des libellés ; préserver le focus et le défilement horizontal / vertical de l'agenda.
 
 Les premières maquettes de cadrage sont décrites dans `docs/MAQUETTES.md` et représentées dans `docs/maquettes/planning-pc.svg` et `docs/maquettes/planning-mobile.svg`. Elles illustrent les dispositions proposées avec des données fictives ; elles ne constituent pas une application fonctionnelle.
 
@@ -236,10 +328,60 @@ Le framework sera choisi après les décisions fonctionnelles ; le stockage util
 20. Un export métier versionné conserve les identifiants, les relations, les affectations, les répétitions et l'historique, sans exposer de jetons ou de mots de passe.
 21. Les droits du foyer sont contrôlés côté backend ; un utilisateur non membre ne peut ni lire ni modifier son planning.
 22. Les mêmes opérations du planning fonctionnent avec un adaptateur de test, sans modification des écrans ou des règles métier ; la sélection de l'adaptateur se fait au point d'initialisation unique.
+23. Déplacer une tâche quotidienne sur un jour contenant déjà cette même tâche propose un regroupement avec avertissement et confirmation. Après confirmation, il ne reste qu'une action à réaliser et le compteur n'est pas doublé ; l'historique est préservé. Annuler conserve le planning antérieur au déplacement.
+24. Une tâche peut avoir ou non une liste de sous-tâches. Cocher toutes les sous-tâches ne termine pas automatiquement la tâche principale ; leur progression reste propre à chaque occurrence.
+25. La configuration par pièces dépliables permet de retrouver, consulter et modifier une tâche sur PC et téléphone, y compris après une recherche.
+26. Une durée estimée peut être renseignée et conservée dans les données de la tâche et dans l'export ; sa saisie seule ne déplace aucune tâche.
+27. Le récapitulatif jour / semaine suit les filtres et les validations, sans perdre les actions faites lorsque leurs cartes sont masquées ; le choix de période affiche les tâches et séances du jour actuel ou de la semaine en cours dans Aujourd'hui, avec un cercle de pourcentage et sans navigation vers d'autres dates.
+28. La duplication ne modifie pas la tâche d'origine, ne reprend pas ses réalisations et ne crée une tâche indépendante qu'après validation.
+29. Sur téléphone, les filtres peuvent être ouverts, retirés individuellement ou réinitialisés, sans modifier les données du foyer.
+30. Une proposition semaine / mois n’écrit rien avant confirmation, conserve les identités, réalisations et répétitions, n’applique que les changements de responsable annoncés, refuse un état périmé et peut être annulée immédiatement.
+31. Reporter une tâche depuis sa carte utilise les mêmes règles de collision que le glisser-déposer ; les options facultatives et les retards sont repliables.
+32. Stats calcule les réalisations à partir des validations enregistrées, distingue auteur et responsable, signale les données inconnues, ne double pas les regroupements et conserve les versions archivées. La consultation, les filtres et l’export ne modifient pas le planning.
 
 ## 7. Évolutions possibles après la V1
 
-Rappels, installation comme application web, mode hors connexion synchronisé, estimation des durées, répartition de la charge entre personnes, statistiques, listes de courses, suivi des stocks et autres routines de la maison.
+### Équilibrage — évolutions ultérieures
+
+Une première proposition d'équilibrage semaine / mois est désormais implémentée dans le périmètre courant, avec aperçu, confirmation et annulation. Les contraintes retenues sont décrites plus haut.
+
+Pour la suite : budgets de temps par jour, disponibilités et préférences de week-end, contraintes d'espacement plus précises et réduction des changements entre propositions. Une préférence d'alternance après réalisation est incluse dans les propositions explicites ; une rotation stricte hors de ce parcours reste hors périmètre.
+
+### Regroupement par pièce et alternance — première implémentation
+
+- Décision utilisateur : l'alternance intervient uniquement lorsque l'on clique sur « Équilibrer ». C'est une préférence secondaire : plusieurs réalisations par la même personne restent possibles, sans rotation stricte ni réattribution au moment de cocher.
+- Favoriser un regroupement modéré des tâches d'une même pièce après l'équilibrage du temps. Limiter la charge maximale au pic de l'équilibrage seul plus une marge de 15 min ou 10 % (la plus grande), et limiter le coût en dispersion du temps pour chaque regroupement. Respecter les jours fixes, les jours choisis et les contraintes des occurrences. La proposition permet de désactiver ce regroupement.
+- Tous les membres participent par défaut ; dans les options facultatives d'une tâche, permettre de restreindre les participants et de désactiver la préférence d'alternance. Une alternance activée nécessite au moins un participant.
+- Décision utilisateur : la personne qui coche est considérée comme ayant effectué la tâche, via `completedBy`. La dernière validation sert de référence, même si le responsable assigné était différent.
+- Dans la portée « Tout le foyer », proposer si possible un autre membre pour la première prochaine occurrence future d'une série après une réalisation. Privilégier un participant différent du dernier auteur, sans déséquilibrer fortement la charge de ce membre. L'affectation change seulement après validation explicite de la proposition.
+- Décision utilisateur : une occurrence restée à faire garde son responsable. Conserver les réalisations, les tâches du jour, les retards, les responsables déjà enregistrés dans une exception et les occurrences futures précédées d'une occurrence encore à faire. Ne pas forcer la rotation des suivantes sans nouvelle réalisation.
+- Dans Aujourd'hui ou une portée limitée à un membre, ne pas réattribuer les tâches à d'autres membres ; l'alternance est réservée aux propositions pour le foyer complet.
+- L'aperçu liste chaque changement de responsable avec le dernier auteur et la date. Une proposition sans déplacement de date peut néanmoins être appliquée si elle contient un changement de responsable. L'annulation restaure dates et affectations.
+- Conserver un identifiant de série optionnel lors des modifications des récurrences pour relier les réalisations aux nouvelles définitions. Ne pas déduire une identité commune de titres similaires. Les nouvelles options sont conservées dans l'export et validées indépendamment de Firebase.
+
+### Statistiques du foyer — première implémentation
+
+Demande utilisateur : un onglet Stats riche en détails, agréable visuellement, avec de l'humour léger. Cette fonctionnalité fait désormais partie du périmètre réalisé ; les données sont dérivées du planning déjà chargé, sans service externe d'analyse ni dépendance Firebase dans les calculs.
+
+- Ajouter une cinquième destination « Stats » dans la navigation PC et mobile. Conserver l'agenda et le récapitulatif personnel existants.
+- Choisir semaine en cours, mois en cours, année en cours ou toutes les réalisations enregistrées. Filtrer par personne ayant coché, pièce / catégorie et fréquence. Les graphiques par personne et pièce sont cliquables pour appliquer ces filtres.
+- Présenter actions réalisées, temps estimé connu / partiel, actions planifiées encore à faire, retards, jours actifs et séries de jours consécutifs. Le cercle représente l'avancement des actions assignées sur la période, distinct du nombre de validations effectuées pendant cette période.
+- Afficher des barres par personne et pièce, un calendrier coloré de l'activité dont les jours actifs ouvrent leur détail, la répartition par jour de semaine et la ponctualité. Pour les longues périodes, limiter le calendrier visuel aux 84 derniers jours, avec les semaines alignées.
+- Ajouter des clins d'œil fondés sur les chiffres : « Le plumeau d'or », « Le balai voyageur » et « La série qui brille ». Prévoir des états vides chaleureux et ne pas inventer de réalisations, de scores ou de durées.
+- Détailler les tâches par série (versions réunies), nombre de réalisations, durée estimée, participants réels et dernière date ; détailler aussi les fréquences, les tâches actives / archivées / non configurées, séances, sous-tâches et exceptions de report / regroupement / affectation.
+- Ajouter un carnet des réalisations avec recherche, chargement progressif, et détail en lecture seule : auteur de la validation, responsable assigné, pièce, date réelle / estimée, date prévue après report, échéance d'origine, estimation et progression des sous-tâches actuellement sauvegardée.
+- Exporter l'historique filtré en CSV lisible dans un tableur, en protégeant les cellules contre l'interprétation des titres ou noms comme formules.
+- Attribuer les réalisations à `completedBy`, pas au responsable assigné. Utiliser la date locale de `completedAt` pour les graphiques ; en son absence, indiquer une date estimée et exclure la réalisation du calcul de ponctualité. Garder les auteurs inconnus distincts.
+- Exclure les occurrences absorbées par regroupement et les validations futures. Une action décochée ne compte plus comme réalisée. Conserver les archives dans les réalisations, avec l'identifiant de série pour réunir leurs versions.
+- Les temps sont estimés à partir des définitions sauvegardées, jamais mesurés ; les durées manquantes ne valent pas zéro. Les reports et affectations décrivent l'état actuel des exceptions, pas un journal de tous les changements. Le panneau explicatif précise ces limites.
+- En mode « Tout », inclure toutes les réalisations conservées ; calculer les compteurs des actions planifiées sur les 365 derniers jours pour limiter le volume, et l'indiquer explicitement.
+- Vérifier l'affichage et les gestes sur un téléphone physique avant publication. Les calculs et interactions en lecture seule sont couverts par des tests automatiques.
+
+### Hub Maison — ultérieur
+
+Prévoir un accueil central permettant de choisir un espace : ménage / planning, repas / recettes ou courses. L'application a vocation à couvrir plusieurs besoins du foyer. Les fonctionnalités et les liens entre repas, recettes et courses restent à cadrer ; ne pas ajouter ces espaces ni leurs données maintenant.
+
+Autres pistes : rappels, installation comme application web, mode hors connexion synchronisé, répartition de la charge entre personnes, approfondissement des statistiques et historique des modifications, suivi des stocks et autres routines de la maison.
 
 Migration de la base et de l'authentification vers la solution de l'utilisateur : PostgreSQL et Keycloak, avec Supabase comme option si retenue plus tard. Cette migration sera traitée quand l'infrastructure sera disponible, sur la base des services et exports préparés dès la V1.
 
@@ -250,5 +392,43 @@ Ces éléments restent hors du périmètre initial sauf décision explicite. L'a
 1. Firebase gratuit retenu pour le stockage partagé ; mode de connexion et accès au foyer à préciser.
 2. Date de départ des répétitions, membres et répartition initiale : à renseigner au premier paramétrage.
 3. Étapes sans couleur et lignes avec fréquences multiples : valider les règles de reprise avant de figer le catalogue.
+4. Collision de deux occurrences d'une même tâche sur un jour : le regroupement proposé avec avertissement conserve le statut et le responsable du jour cible, avec un lien enregistré vers les occurrences absorbées. Préciser plus tard le traitement des progressions de sous-tâches différentes.
+5. Sous-tâches : validation principale et cases internes indépendantes dans la première implémentation. Affiner après essai l'édition des listes et le traitement des progressions différentes lors d'un regroupement.
+6. Durée estimée : champ facultatif, filtres, tris et estimations retenus dans l'interface actuelle. Tester la première proposition semaine / mois et affiner les contraintes de disponibilité ultérieurement.
+7. Tester les sections de configuration par pièce et préciser la direction graphique sans remettre en cause l'ergonomie générale.
 
 Après ces décisions : mettre à jour le cahier des charges, proposer les maquettes principales, puis réaliser et vérifier l'application avant sa publication.
+
+## Comptes et plusieurs familles — préparation au déploiement
+
+Demande utilisateur : chaque membre utilise son propre compte. Un compte peut créer une famille et rejoindre d'autres familles par invitation. L'utilisateur choisit la famille active et peut définir une famille favorite, ouverte par défaut à sa prochaine connexion. Les tâches, séances, affectations et statistiques restent propres à la famille active.
+
+Conserver Firebase Authentication et Firestore sur le forfait Spark pour la V1. Utiliser une base partagée avec des espaces de données séparés par identifiant de famille et protégés par les règles Firestore ; une base physique par famille n'est pas nécessaire. Les quotas gratuits restent communs au projet.
+
+Le code actuel ne gère qu'un rattachement de famille par compte. Le multi-famille et la préférence favorite sont maintenant implémentés et testés localement ; les règles et la connexion restent à activer et vérifier sur le projet Firebase réel. Le bloc « Démonstration locale » doit devenir un bloc affichant le compte réel, son adresse et la famille active dans l'application connectée. L'aperçu hors ligne reste clairement identifié comme local.
+
+Propositions à valider :
+- Créateur administrateur de sa famille ; membres invités autorisés à utiliser le planning, administration des accès réservée à l'administrateur.
+- Invitations réservées à une adresse vérifiée, expirantes et utilisables une seule fois ; aucun mot de passe créé pour autrui.
+- Un compte ne peut être lié qu'à un membre par famille ; rejoindre une famille conserve toutes les autres appartenances.
+- Le changement de famille ferme les abonnements précédents et réinitialise les filtres, détails et actions en attente pour éviter tout mélange.
+- Quitter ou perdre l'accès à sa favorite demande un nouveau choix de famille autorisée.
+- Google seul ou Google et email/mot de passe : choix demandé à l'utilisateur.
+
+Avant publication : tester les accès avec deux familles, un membre commun, un membre exclusif et un compte extérieur ; vérifier les refus côté règles, les invitations, la favorite et la synchronisation. Confirmer Firestore, les fournisseurs de connexion, les domaines autorisés et GitHub Pages.
+
+### Correction mobile avant publication
+
+À la suite du chevauchement signalé sur un écran de 375 px, le calendrier et son récapitulatif sont empilés jusqu'à 600 px ; les colonnes intermédiaires conservent des enfants réductibles. Les commandes de période reviennent sur plusieurs lignes sur téléphone. Les actions des fenêtres se replient, les champs utilisent une taille de texte de 16 px et le contenu réserve l'espace de la navigation et de la zone de sécurité inférieure. La grille PC est conservée. Ces corrections de styles doivent encore être validées visuellement sur téléphone, notamment avec le clavier ouvert.
+
+### Préparation réalisée — comptes et familles
+
+Connexion Google conservée pour cette étape, email/mot de passe restant une extension possible. L'application connectée affiche « Mon compte », l'adresse et la famille active, avec un accès « Mes familles » utilisable sur mobile. La navigation PC comporte aussi le sélecteur de famille. Chaque famille conserve un membre métier par compte ; la création et l'acceptation d'invitation préservent les autres appartenances. La favorite ne change pas quand une nouvelle famille est rejointe ; la première famille créée devient la favorite.
+
+Les invitations sont liées à une adresse vérifiée, expirent après sept jours et sont consommées dans la même transaction que le rattachement. Un membre déjà lié ne peut recevoir un autre compte. Seul le créateur prépare les membres et les invitations ; chacun peut renommer son propre membre. Les actions, filtres et détails en attente sont réinitialisés au changement de famille.
+
+Validation : tests métier et de sélection de famille ; tests des règles dans l'émulateur Firestore pour deux familles, accès extérieur refusé, appartenance multiple, préférence favorite, adresse non vérifiée, invitation consommée/expirée et tentative de changement de propriétaire. Ces tests n'attestent pas de la configuration du projet réel ni du rendu mobile.
+
+### Configuration Firebase confirmée par l'utilisateur
+
+L'utilisateur a terminé la création de Firestore en mode production après le choix de la base `(default)` et la recommandation de Paris ; il confirme la publication des règles, l'activation de Google et l'ajout des domaines autorisés. La CLI locale continue de recevoir une erreur de permissions : ces réglages sont confirmés par l'utilisateur, pas contrôlés administrativement depuis cet environnement. La connexion réelle, la création d'une famille et une invitation restent à tester après publication.

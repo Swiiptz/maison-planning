@@ -17,7 +17,8 @@ test('standalone preview starts without a server, network, or browser storage', 
   const document = { querySelector: selector => nodes[selector], querySelectorAll: () => [], addEventListener() {}, body: element() };
   const context = vm.createContext({ document, window: { addEventListener() {} }, location: { pathname: '/apercu.html', search: '' }, console, URLSearchParams, URL, Date, Intl, crypto: webcrypto, structuredClone, setTimeout() {}, clearTimeout() {}, fetch() { throw new Error('L’aperçu ne doit pas utiliser le réseau.'); } });
   await vm.runInContext(script, context, { timeout: 10000 });
-  assert.ok(nodes['#app'].innerHTML.includes('Aperçu interactif'));
+  assert.equal(nodes['#app'].innerHTML.includes('Aperçu interactif'), false);
+  assert.equal(nodes['#app'].innerHTML.includes('Exemple local'), false);
   assert.ok(nodes['#app'].innerHTML.includes('L’agenda de la maison'));
   assert.equal((nodes['#app'].innerHTML.match(/class="day-column/g) ?? []).length, 7);
   assert.ok(nodes['#app'].innerHTML.includes('data-toggle='));

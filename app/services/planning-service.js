@@ -1,5 +1,5 @@
-import { validateState, updateOccurrences, updateSeries, uid } from '../domain/planning.js';
-import { addDays } from '../domain/dates.js';
+import { validateState, updateOccurrences, updateSeries, uid, applyReorganization } from '../domain/planning.js';
+import { addDays, today } from '../domain/dates.js';
 
 export function createPlanningService(adapter, actorId) {
   let state;
@@ -25,7 +25,24 @@ export function createPlanningService(adapter, actorId) {
   return {
     async load() { state = await adapter.load(); return structuredClone(state); },
     subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); },
-    update(items, patch) { return save(s => updateOccurrences(s, items, patch, actorId)); },
+    update(items, patch, options = {}) { return save(s => {
+      if (options.expectedRevision !== undefined && s.revision !== options.expectedRevision) throw new Error('Le planning a changé. Réessaie le déplacement pour vérifier les doublons.');
+      const fresh = items.map(item => ({ ...item, ...(s.overrides[item.id] ?? {}) }));
+      return updateOccurrences(s, fresh, patch, actorId, options);
+    }); },
+    setSubtask(item, subtaskId, checked) { return save(s => {
+      const task = s.tasks.find(t => t.id === item.taskId);
+      if (!task?.subtasks?.some(subtask => subtask.id === subtaskId) || typeof checked !== 'boolean') throw new Error('Sous-tâche introuvable.');
+      const fresh = { ...item, ...(s.overrides[item.id] ?? {}) };
+      const done = new Set(fresh.subtaskDone ?? []);
+      if (checked) done.add(subtaskId); else done.delete(subtaskId);
+      return updateOccurrences(s, [fresh], { subtaskDone: [...done] }, actorId);
+    }); },
+    reorganize(options, expectedRevision) { return save(s => { if (options.notBefore !== today()) throw new Error('La journée a changé. Génère une nouvelle proposition.'); return applyReorganization(s, options, expectedRevision); }); },
+    restoreMove(overrides, expectedRevision) { return save(s => {
+      if (s.revision !== expectedRevision) throw new Error('Le planning a changé depuis le déplacement. Annulation impossible sans écraser une modification.');
+      s.overrides = structuredClone(overrides); return s;
+    }); },
     updateSeries(item, changes) { return save(s => updateSeries(s, item, changes)); },
     updateFuture(items, changes) { return save(s => items.reduce((next, item) => updateSeries(next, item, changes), s)); },
     restoreDates(items) { return save(s => items.reduce((next, item) => updateOccurrences(next, [item], { date: item.previousDate }, actorId), s)); },

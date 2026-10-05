@@ -5,6 +5,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 const sources = [
   'domain/dates.js',
   'domain/planning.js',
+  'domain/statistics.js',
   'adapters/demo.js',
   'services/seed.js',
   'services/planning-service.js',
@@ -38,7 +39,6 @@ for (const filename of sources) {
     source = source.replace("const KEY = 'maison-demo-v1'", "const KEY = 'maison-preview-v1'").replace('storage = globalThis.localStorage', 'storage = previewStorage');
   }
   if (filename === 'main.js') {
-    source = source.replace('Démonstration</strong> · Enregistrée sur cet appareil', 'Aperçu interactif</strong> · Données d’exemple locales');
     source = source.replace(/\ninit\(\);\s*$/, '\nawait init();\n');
   }
   code += source + '\n';

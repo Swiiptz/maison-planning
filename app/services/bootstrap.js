@@ -22,10 +22,13 @@ export async function createRuntime({ demo = false } = {}) {
   const infrastructure = await createFirebaseInfrastructure(config.firebase);
   return {
     mode: 'shared', auth: infrastructure.auth,
-    memberId: null,
+    memberId: null, households: [], favoriteHouseholdId: null,
+    async refreshHouseholds() { const result = await infrastructure.listHouseholds(); this.households = result.households; this.favoriteHouseholdId = result.favoriteHouseholdId; return this.households; },
+    async setFavorite(householdId) { await infrastructure.setFavoriteHousehold(householdId); this.favoriteHouseholdId = householdId; },
     permissions: { canInvite: false },
-    async open() {
-      const membership = await infrastructure.getMembership();
+    async open(householdId) {
+      await this.refreshHouseholds();
+      const membership = householdId ? this.households.find(h => h.householdId === householdId) : this.households.find(h => h.householdId === this.favoriteHouseholdId) ?? this.households[0];
       if (!membership) return null;
       this.memberId = membership.memberId;
       this.permissions = { canInvite: membership.canInvite };
@@ -36,10 +39,12 @@ export async function createRuntime({ demo = false } = {}) {
     async createHousehold(name) {
       const initial = seedState(catalog, { memberName: infrastructure.auth.current().name });
       initial.household.name = name;
-      await infrastructure.createHousehold(initial);
-      return this.open();
+      const membership = await infrastructure.createHousehold(initial);
+      await this.refreshHouseholds();
+      if (!this.favoriteHouseholdId) await this.setFavorite(membership.householdId);
+      return this.open(membership.householdId);
     },
-    async joinHousehold(token) { await infrastructure.joinHousehold(token); return this.open(); },
+    async joinHousehold(token) { const membership = await infrastructure.joinHousehold(token); return this.open(membership.householdId); },
     async invite(memberId, email, householdId) { return infrastructure.inviteMember(householdId, memberId, email); },
     onError(fn) { return adapter?.onError(fn) ?? (() => {}); },
     dispose() { adapter?.dispose(); },
