@@ -1,0 +1,66 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function housePath(hid) { return /databases/$(database)/documents/households/$(hid); }
+    function isMember(hid) { return signedIn() && request.auth.uid in get(housePath(hid)).data.access; }
+    function isOwner(hid) { return signedIn() && get(housePath(hid)).data.ownerUid == request.auth.uid; }
+    function isMemberAfter(hid) { return signedIn() && request.auth.uid in getAfter(housePath(hid)).data.access; }
+    function invitationPath(token) { return /databases/$(database)/documents/invitations/$(token); }
+    function canJoin(hid) {
+      let entry = request.resource.data.access[request.auth.uid];
+      let invitation = get(invitationPath(entry.invitationId)).data;
+      return !(request.auth.uid in resource.data.access)
+        && request.auth.token.email_verified == true
+        && invitation.email == request.auth.token.email.lower()
+        && invitation.householdId == hid
+        && invitation.memberId == entry.memberId
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['access'])
+        && request.resource.data.access.diff(resource.data.access).affectedKeys().hasOnly([request.auth.uid])
+        && entry.keys().hasOnly(['memberId', 'invitationId']);
+    }
+    match /identities/{uid} {
+      allow read: if signedIn() && uid == request.auth.uid;
+      allow create, update: if signedIn() && uid == request.auth.uid
+        && request.resource.data.keys().hasOnly(['householdId', 'memberId'])
+        && isMemberAfter(request.resource.data.householdId)
+        && getAfter(housePath(request.resource.data.householdId)).data.access[uid].memberId == request.resource.data.memberId;
+      allow delete: if false;
+    }
+    match /households/{hid} {
+      allow read: if isMember(hid);
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['schemaVersion', 'revision', 'name', 'ownerUid', 'access'])
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.revision == 0
+        && request.resource.data.access.keys().hasOnly([request.auth.uid])
+        && request.resource.data.access[request.auth.uid].keys().hasOnly(['memberId']);
+      allow update: if signedIn() && (
+        (isMember(hid)
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['revision'])
+          && request.resource.data.revision == resource.data.revision + 1)
+        || canJoin(hid)
+      );
+      allow delete: if false;
+      match /{collection}/{id} {
+        allow read: if isMember(hid) && collection in ['members', 'groups', 'tasks', 'sessions', 'overrides'];
+        allow create, update: if isMemberAfter(hid)
+          && collection in ['members', 'groups', 'tasks', 'sessions', 'overrides']
+          && request.resource.data.id == id;
+        allow delete: if isMember(hid) && collection in ['groups', 'tasks', 'sessions', 'overrides'];
+      }
+    }
+    match /invitations/{token} {
+      allow get: if signedIn() && (isOwner(resource.data.householdId)
+        || (request.auth.token.email_verified == true && resource.data.email == request.auth.token.email.lower()));
+      allow list: if false;
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['householdId', 'memberId', 'email', 'createdBy', 'createdAt'])
+        && isOwner(request.resource.data.householdId)
+        && request.resource.data.createdBy == request.auth.uid
+        && exists(/databases/$(database)/documents/households/$(request.resource.data.householdId)/members/$(request.resource.data.memberId));
+      allow update, delete: if isOwner(resource.data.householdId);
+    }
+  }
+}
