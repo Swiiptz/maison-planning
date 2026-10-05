@@ -515,3 +515,64 @@ test('connected settings show the real account and an escaped family selector wi
   assert.ok(nodes['#dialog'].innerHTML.includes('aria-pressed="true"'));
   assert.ok(nodes['#dialog'].innerHTML.includes('Créer ou rejoindre'));
 });
+
+test('pending invitation can be reopened with its original code and self invitations are blocked', async () => {
+  const {qa,nodes,click,submitForm} = await harness();
+  const shared=qa.getRuntime();shared.mode='shared';shared.permissions={canInvite:true};shared.auth.current=()=>({name:'Moi',email:'me@example.test'});
+  const other=qa.getState().members.find(m=>m.id!==shared.memberId);
+  let created=0; shared.invite=async()=>{created++;return 'new-code';};
+  shared.pendingInvitation=async()=>({token:'original-code',email:'other@example.test',expiresAt:'2026-10-12T12:00:00Z'});
+  qa.ui.page='settings';qa.render();
+  assert.equal(nodes['#app'].innerHTML.includes(`data-action="invite" data-id="${shared.memberId}"`),false);
+  await click('invite',{id:other.id});
+  assert.ok(nodes['#dialog'].innerHTML.includes('Invitation en attente'));
+  assert.ok(nodes['#dialog'].innerHTML.includes('original-code'));
+  assert.ok(nodes['#dialog'].innerHTML.includes('Copier le code'));
+  assert.equal(created,0);
+  await submitForm('invite-form',{email:' ME@EXAMPLE.TEST '},{id:other.id});
+  assert.ok(nodes['#toast'].innerHTML.includes('tu ne peux pas t’inviter toi-même'));
+  assert.equal(created,0);
+});
+test('an existing pending code is preserved when an invitation form is submitted again', async () => {
+ const {qa,nodes,submitForm}=await harness();const shared=qa.getRuntime();
+ const other=qa.getState().members.find(m=>m.id!==shared.memberId);
+ shared.auth.current=()=>({email:'me@example.test'});
+ shared.pendingInvitation=async()=>({token:'kept-code',email:'other@example.test',expiresAt:'2026-10-12T12:00:00Z'});
+ shared.invite=async()=>{throw new Error('A second code must not be created');};
+ await submitForm('invite-form',{email:'other@example.test'},{id:other.id});
+ assert.ok(nodes['#dialog'].innerHTML.includes('kept-code'));
+});
+
+test('new task editor leaves the responsible person unselected by default',async()=>{
+ const {nodes,click}=await harness();await click('new-task');
+ assert.ok(nodes['#dialog'].innerHTML.includes('<option value="" selected>À attribuer</option>'));
+});
+test('catalogue unassignment is confirmed, preserves tasks and supports undo',async()=>{
+ const {qa,nodes,click}=await harness();qa.ui.page='catalog';qa.render();const count=qa.getState().tasks.length;
+ await click('clear-catalog-assignments');assert.ok(nodes['#dialog'].innerHTML.includes('Retirer les responsables'));
+ assert.ok(qa.getState().tasks.some(task=>task.memberId));
+ await click('confirm-clear-assignments');assert.equal(qa.getState().tasks.length,count);assert.ok(qa.getState().tasks.every(task=>task.archived||!task.memberId));
+ assert.ok(nodes['#toast'].innerHTML.includes('Annuler'));
+ await click('undo');assert.ok(qa.getState().tasks.some(task=>task.memberId));
+});
+test('M&Ms can review durations without writing until confirmation',async()=>{
+ const {qa,nodes,click,submitForm}=await harness();const task=qa.getState().tasks[0];
+ await qa.getService().editTask(task.id,{estimatedMinutes:null});qa.getState().household.name='M&Ms';
+ qa.getRuntime().durationSuggestions=[{id:task.id,groupId:task.groupId,title:task.title,estimatedMinutes:3}];
+ qa.ui.page='catalog';qa.render();assert.ok(nodes['#app'].innerHTML.includes('Ajouter les durées estimées'));
+ await click('suggest-durations');assert.equal(qa.getState().tasks[0].estimatedMinutes,null);
+ await submitForm('duration-proposal-form',{'minutes-0':'4'});assert.equal(qa.getState().tasks[0].estimatedMinutes,4);
+ assert.ok(nodes['#toast'].innerHTML.includes('Annuler'));
+});
+
+test('day removal is available in card options and preserves the other session actions',async()=>{
+ const {qa,nodes,click}=await harness();
+ const card=[...qa.getCards().values()].find(card=>card.items.length>1);
+ const item=card.items[0];const sameDayBefore=qa.occurrences(qa.getState(),item.date,item.date).length;
+ await click('quick-move',{id:card.id});assert.ok(nodes['#dialog'].innerHTML.includes('Retirer une action de ce jour'));
+ await click('remove-occurrence',{id:item.id});assert.ok(nodes['#dialog'].innerHTML.includes('Retirer de ce jour'));
+ assert.equal(qa.occurrences(qa.getState(),item.date,item.date).length,sameDayBefore);
+ await click('confirm-remove-occurrence');assert.equal(qa.occurrences(qa.getState(),item.date,item.date).length,sameDayBefore-1);
+ assert.ok(nodes['#toast'].innerHTML.includes('Annuler'));
+ await click('undo');assert.equal(qa.occurrences(qa.getState(),item.date,item.date).length,sameDayBefore);
+});

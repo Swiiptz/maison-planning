@@ -31,7 +31,7 @@ La première version couvre la planification et le suivi. L'organisation du code
 - `EDT MAINTENIR LA MAISON PROPRE.pdf` : 7 pages, tâches par pièce et légende des fréquences.
 - `EDT MAINTENIR LA MAISON PROPRE Tache tranverse.pdf` : 2 pages, tâches communes à la maison.
 
-Les textes, les regroupements et les fréquences des PDF servent de base au catalogue initial. Les PDF décrivent des fréquences, pas un calendrier daté complet. Les dates de démarrage seront choisies dans l'application.
+Les textes, les regroupements et les fréquences des PDF servent de base au catalogue historique de M&Ms et à la démonstration ; les nouvelles familles commencent sans tâches. Les PDF décrivent des fréquences, pas un calendrier daté complet. Les dates de démarrage seront choisies dans l'application.
 
 ### Fréquences et couleurs
 
@@ -90,7 +90,7 @@ Exemple : « Nettoyer le lavabo » porte un badge turquoise « Salle de bain » 
 
 - Fournir les tâches issues des deux documents, regroupées par pièce ou catégorie transversale.
 - Créer et modifier une tâche : titre, groupe, description facultative, fréquence, date de départ et responsable habituel.
-- Ajouter une durée estimée facultative configurable en minutes (1 à 1440). Cette estimation sert aux propositions d’équilibrage ; sa saisie ne déclenche pas de déplacement automatique. Ne pas inventer de durée à partir des PDF. Le champ vide signifie « inconnue », jamais zéro minute.
+- Ajouter une durée estimée facultative configurable en minutes (1 à 1440). Cette estimation sert aux propositions d’équilibrage ; sa saisie ne déclenche pas de déplacement automatique. Ne pas présenter une durée proposée comme une donnée des PDF. À la demande de l’utilisateur, des estimations de travail actif sont proposées pour le catalogue historique de M&Ms, modifiables avant leur enregistrement. Le champ vide signifie « inconnue », jamais zéro minute.
 - Dans Aujourd'hui, Agenda et Tâches, proposer les filtres « 15 min ou moins », « 16 à 30 min », « Plus de 30 min » et « Durée à renseigner », ainsi qu'un tri du plus court au plus long et l'inverse. Dans le catalogue, trier à l'intérieur de chaque pièce. Dans l'agenda, trier les cartes à l'intérieur de chaque jour sans modifier leurs dates ; les séances utilisent la somme de leurs actions. Les durées inconnues ou incomplètes restent en fin de tri.
 - Afficher l'estimation sur les tâches, les séances et leur détail ; afficher le temps restant estimé des tâches filtrées pour le jour ou la période. Additionner les durées des tâches principales, sans ajouter de temps pour le regroupement en séance ni pour les sous-tâches. Si des durées manquent, signaler une estimation partielle (« Au moins… ») et le nombre de durées manquantes.
 - Regrouper la liste de configuration par pièce ou catégorie dans des sections dépliables avec un nombre de tâches. Tester « Tout déplier / Tout replier » et l'ouverture automatique des sections contenant les résultats d'une recherche.
@@ -432,3 +432,19 @@ Validation : tests métier et de sélection de famille ; tests des règles dans 
 ### Configuration Firebase confirmée par l'utilisateur
 
 L'utilisateur a terminé la création de Firestore en mode production après le choix de la base `(default)` et la recommandation de Paris ; il confirme la publication des règles, l'activation de Google et l'ajout des domaines autorisés. La CLI locale continue de recevoir une erreur de permissions : ces réglages sont confirmés par l'utilisateur, pas contrôlés administrativement depuis cet environnement. La connexion réelle, la création d'une famille et une invitation restent à tester après publication.
+
+### Invitations retrouvables
+
+Le créateur peut rouvrir « Invitation » à côté d'un membre pour retrouver le code encore valide, son destinataire et son expiration, et le copier. Réouvrir ou soumettre de nouveau ne remplace pas une invitation en attente. Les invitations acceptées ou expirées ne sont pas proposées comme actives. L'action n'apparaît pas sur son propre membre ; l'adresse du compte connecté est refusée à la saisie, dans l'adaptateur et par les règles Firestore. Seul le propriétaire peut rechercher les invitations de son foyer, avec une requête limitée à ce foyer. La nouvelle règle doit être republiée sur le projet réel pour activer cette recherche.
+
+### Familles vides, affectations facultatives et durées de M&Ms
+
+Clarification utilisateur : « supprimer » désigne ici le retrait de l'affiliation à une personne, sans suppression des tâches. Ajouter « Retirer les responsables » dans la configuration des tâches et les vues jour/semaine/mois. Dans le catalogue, retirer les responsables de toutes les tâches actives et des exceptions non réalisées correspondantes ; dans l'agenda, traiter les actions non réalisées de la période selon les filtres actifs. Confirmation avec portée et nombre, refus en cas de modification concurrente, annulation immédiate. Les réalisations conservent leur responsable et auteur historiques.
+
+Les nouvelles tâches sont « À attribuer » par défaut. Toute nouvelle famille, y compris une famille portant le même nom qu'une autre, démarre sans tâches ni séances automatiques. Les données déjà sauvegardées de M&Ms restent intactes. Les pièces du catalogue restent disponibles pour faciliter la création.
+
+Pour M&Ms, proposer les durées actives des 187 tâches d'origine, avec aperçu éditable et enregistrement groupé. Exemples : préparation du matériel 3 min, nettoyage du lavabo 4 min, lancement de machine 5 min, pliage du linge 20 min, tonte 45 min. Les cycles de machine, le séchage et le trempage sont exclus. Ne pas écraser une estimation existante et ne pas attribuer une estimation à une tâche personnalisée non reconnue. Ces durées sont des propositions et dépendent de la taille du logement.
+
+### Retirer une tâche d'un jour
+
+Ajouter « Retirer de ce jour » dans les options d'une carte et sur chaque action non réalisée du détail d'une séance. Après confirmation, retirer uniquement cette occurrence du programme et des compteurs de ce jour. La tâche du catalogue, ses récurrences et les autres actions de la séance restent conservées. Une occurrence reportée est retirée de son jour actuel sans réapparaître à sa date d'origine. Le retrait est exporté comme une exception explicite, sans réalisation fictive. Préserver l'historique des actions réalisées, refuser les propositions périmées et proposer l'annulation immédiate si aucune autre modification n'est intervenue.

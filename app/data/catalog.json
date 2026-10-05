@@ -108,7 +108,9 @@
       "description": "gants, bassine, sweefer, microfibre + nettoyant multi surface, éponge + pschitt javel, microfibre + produit à vitre, produit toilette, aspirateur, serpillère + produit sol",
       "recurrence": null,
       "sourceText": "Réunir le matériel nécessaire au nettoyage (gants, bassine, sweefer, microfibre + nettoyant multi surface, éponge + pschitt javel, microfibre + produit à vitre, produit toilette, aspirateur, serpillère + produit sol)",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -119,7 +121,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Mettre le linge sale dans le panier",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 1,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -130,7 +134,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Mettre le produit dans l’intérieur des toilettes pour le laisser agir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 1,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -141,7 +147,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Mettre à la poubelle les déchets et produits vides",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -152,7 +160,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Sortir la poubelle dans le couloir + changer le sac",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -163,7 +173,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Mettre les éléments posés sur les surfaces dans la bassine",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -174,7 +186,9 @@
       "description": "microfibre + produit à vitre",
       "recurrence": "fortnightly",
       "sourceText": "Nettoyer les miroirs (microfibre + produit à vitre)",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -185,7 +199,9 @@
       "description": "Sweefer puis microfibre + nettoyant multi surface",
       "recurrence": "monthly",
       "sourceText": "Nettoyer les étagères (Sweefer puis microfibre + nettoyant multi surface)",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -196,7 +212,9 @@
       "description": "Sweefer puis microfibre + nettoyant multi surface",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer les tiroirs (Sweefer puis microfibre + nettoyant multi surface)",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 10,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -207,7 +225,9 @@
       "description": "éponge + pschitt javel",
       "recurrence": "weekly",
       "sourceText": "Nettoyer le lavabo (éponge + pschitt javel)",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -218,7 +238,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer le pommeau de douche (",
-      "reviewNote": "Consigne incomplète dans le PDF"
+      "reviewNote": "Consigne incomplète dans le PDF",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -229,7 +251,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Nettoyer la baignoire",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 10,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -240,7 +264,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Passer l’aspirateur",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -251,7 +277,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Frotter à la brosse l’intérieur des toilettes",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -262,7 +290,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Nettoyer les toilettes",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -273,7 +303,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Passer la serpillière",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -284,7 +316,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Jeter les déchets qui restent + Fermer sac poubelle + Jeter",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -295,7 +329,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Remettre les éléments de la bassine là où ils doivent être",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -306,7 +342,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Charger de nouveaux rouleaux de PQ",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 1,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bathroom",
@@ -317,7 +355,9 @@
       "description": "",
       "recurrence": null,
       "sourceText": "Ranger tout le matériel",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bedroom",
@@ -328,7 +368,9 @@
       "description": "bassine, sweefer, microfibre + nettoyant multi surface, microfibre + produit à vitre, aspirateur, serpillère + produit sol",
       "recurrence": null,
       "sourceText": "Réunir le matériel nécessaire au nettoyage (bassine, sweefer, microfibre + nettoyant multi surface, microfibre + produit à vitre, aspirateur, serpillère + produit sol)",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bedroom",
@@ -339,7 +381,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Mettre le linge sale dans le panier -> couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bedroom",
@@ -350,7 +394,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Mettre les détritus à la poubelle",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bedroom",
@@ -361,7 +407,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Mettre les objets sur les surfaces dans la bassine -> couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bedroom",
@@ -372,7 +420,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Enlever les draps sales -> couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bedroom",
@@ -383,7 +433,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Rouler les tapis -> couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bedroom",
@@ -394,7 +446,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Faire les poussières sur les meubles",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bedroom",
@@ -405,7 +459,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Nettoyer les surfaces",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 7,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bedroom",
@@ -416,7 +472,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Passer l’aspirateur sur le sol",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 7,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bedroom",
@@ -427,7 +485,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Passer l’aspirateur sur les tapis dans le couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bedroom",
@@ -438,7 +498,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Passer la serpillère",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 7,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bedroom",
@@ -449,7 +511,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer les vitres",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 10,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bedroom",
@@ -460,7 +524,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Remettre les tapis + corbeille à linge + objets bassine",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bedroom",
@@ -471,7 +537,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Remettre de nouveaux draps",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 7,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "bedroom",
@@ -482,7 +550,9 @@
       "description": "",
       "recurrence": null,
       "sourceText": "Ranger le matériel",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -493,7 +563,9 @@
       "description": "bassine, sweefer, microfibre + nettoyant multi surface, microfibre + produit à vitre, aspirateur, serpillère + produit sol",
       "recurrence": null,
       "sourceText": "Réunir le matériel nécessaire au nettoyage (bassine, sweefer, microfibre + nettoyant multi surface, microfibre + produit à vitre, aspirateur, serpillère + produit sol)",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -504,7 +576,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Mettre les détritus à la poubelle",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -515,7 +589,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Mettre les objets sur les surfaces dans la bassine -> couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -526,7 +602,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Enlever les draps sales -> couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -537,7 +615,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Rouler les tapis -> couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -548,7 +628,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Faire les poussières sur les meubles",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -559,7 +641,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer les surfaces",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 6,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -570,7 +654,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Passer l’aspirateur sur le sol",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -581,7 +667,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Passer l’aspirateur sur les tapis dans le couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -592,7 +680,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Passer la serpillère",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -603,7 +693,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer les vitres",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 8,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -614,7 +706,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Remettre les tapis + corbeille à linge + objets bassine",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -625,7 +719,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Remettre les tapis + corbeille à linge + objets bassine",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 1,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -636,7 +732,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Remettre les tapis + corbeille à linge + objets bassine",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -647,7 +745,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Remettre de nouveaux draps",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 7,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "blue-room",
@@ -658,7 +758,9 @@
       "description": "",
       "recurrence": null,
       "sourceText": "Ranger le matériel",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -669,7 +771,9 @@
       "description": "bassine x2, sweefer, microfibre + nettoyant multi surface, microfibre + produit à vitre, aspirateur, serpillère + produit sol",
       "recurrence": null,
       "sourceText": "Réunir le matériel nécessaire au nettoyage (bassine x2, sweefer, microfibre + nettoyant multi surface, microfibre + produit à vitre, aspirateur, serpillère + produit sol)",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -680,7 +784,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Mettre les détritus à la poubelle",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -691,7 +797,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Mettre les objets qui n’appartiennent pas à cette pièce dans la bassine 1 -> couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -702,7 +810,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Mettre les objets sur les surfaces dans la bassine 2 -> couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -713,7 +823,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Enlever les draps sales -> couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -724,7 +836,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Rouler les tapis -> couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -735,7 +849,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Faire les poussières sur les meubles",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -746,7 +862,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer les surfaces",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 6,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -757,7 +875,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Remettre les éléments de la bassine 1 à leur place en les dépoussiérant au fur et à mesure",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -768,7 +888,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Passer l’aspirateur sur le sol",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 6,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -779,7 +901,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Passer l’aspirateur sur les tapis dans le couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -790,7 +914,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Passer la serpillère",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 6,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -801,7 +927,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer les vitres",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 8,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -812,7 +940,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Remettre les tapis + éléments bassine 2",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -823,7 +953,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Remettre les tapis + éléments bassine 2",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -834,7 +966,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Remettre de nouveaux draps",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 7,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "playroom",
@@ -845,7 +979,9 @@
       "description": "",
       "recurrence": null,
       "sourceText": "Ranger le matériel",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -856,7 +992,9 @@
       "description": "bassine, sweefer, microfibre + nettoyant multi surface, microfibre + produit à vitres, éponge + produit dégraissant, aspirateur, serpillère + produit sol",
       "recurrence": null,
       "sourceText": "Réunir le matériel nécessaire au nettoyage (bassine, sweefer, microfibre + nettoyant multi surface, microfibre + produit à vitres, éponge + produit dégraissant, aspirateur, serpillère + produit sol)",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -867,7 +1005,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Ouvrir les fenêtres",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 1,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -878,7 +1018,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Vider le lave-vaisselle",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -889,7 +1031,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Vérifier s’il faut mettre du sel dans le lave vaisselle",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 1,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -900,7 +1044,9 @@
       "description": "mettre les éléments gros dans l’évier si plus de place",
       "recurrence": "daily",
       "sourceText": "Réunir toute la vaisselle sale pour remplir le lave-vaisselle ( mettre les éléments gros dans l’évier si plus de place)",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -911,7 +1057,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Ramasser tous les déchets et les jeter",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -922,7 +1070,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Regrouper les objets appartenant à d’autres pièces dans la bassine",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -933,7 +1083,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Ranger les aliments sortis",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -944,7 +1096,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Jeter les aliments périmés",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -955,7 +1109,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Mettre le linge sale dans la panière",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 1,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -966,7 +1122,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Dernier check et lancer le lave-vaisselle",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 1,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -977,7 +1135,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Enlever tous les éléments sur les surfaces et les poser sur la table",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -988,7 +1148,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Sortir la poubelle jaune + changer le sac",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -999,7 +1161,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Sortir la poubelle verte + changer le sac",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1010,7 +1174,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer les portes de placard et la façade du réfrigérateur",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 10,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1021,7 +1187,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Nettoyer surfaces",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1032,7 +1200,9 @@
       "description": "",
       "recurrence": null,
       "sourceText": "Laver la vaisselle qui resterait dans l’évier",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 10,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1043,7 +1213,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Nettoyer l’évier",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1054,7 +1226,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Nettoyer la plaque de cuisson",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 6,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1065,7 +1239,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Nettoyer les éléments de la table puis les remettre à leur place un par un",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 6,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1076,7 +1252,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Nettoyer la table",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1087,7 +1265,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer les baies vitrées",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 15,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1098,7 +1278,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Mettre tous les meubles en hauteur pour que le sol soit accessible",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1109,7 +1291,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Passer l’aspirateur",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 8,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1120,7 +1304,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Passer la serpillère",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 8,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1131,7 +1317,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Remettre les meubles à leur place",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1142,7 +1330,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Mettre de nouveaux linges propres à disposition",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1153,7 +1343,9 @@
       "description": "",
       "recurrence": null,
       "sourceText": "Ranger le matériel",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1164,7 +1356,9 @@
       "description": "",
       "recurrence": null,
       "sourceText": "Fermer la fenêtre",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 1,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1175,7 +1369,9 @@
       "description": "",
       "recurrence": null,
       "sourceText": "Ranger les éléments de la bassine",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1186,7 +1382,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer micro ondes",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1197,7 +1395,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer four",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 25,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1208,7 +1408,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer lave vaisselle",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 15,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1219,7 +1421,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Détartrage bouilloire",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1230,7 +1434,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer le réfrigérateur",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 20,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "kitchen",
@@ -1241,7 +1447,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer la poubelle",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 8,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1252,7 +1460,9 @@
       "description": "bassine x2, sweefer, microfibre + nettoyant multisurface, microfibre + nettoyant d’écran télé, microfibre + produit à vitre, aspirateur, serpillière, petite poubelle de l’étage",
       "recurrence": null,
       "sourceText": "Réunir le matériel nécessaire au nettoyage (bassine x2, sweefer, microfibre + nettoyant multisurface, microfibre + nettoyant d’écran télé, microfibre + produit à vitre, aspirateur, serpillière, petite poubelle de l’étage)",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1263,7 +1473,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Prendre la petite poubelle et ramasser tous les déchets de la pièce + au besoin, vider la poubelle",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1274,7 +1486,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Réunir la vaisselle pour la mettre dans le lave-vaisselle ou à défaut dans l’évier",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1285,7 +1499,9 @@
       "description": "ou dans l’escalier si trop d’éléments) Tout réunir par thème",
       "recurrence": "weekly",
       "sourceText": "Réunir les éléments qui n’appartiennent pas à la pièce dans la bassine (ou dans l’escalier si trop d’éléments) Tout réunir par thème",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1296,7 +1512,9 @@
       "description": "ou dans l’entrée de la cuisine si trop d’éléments) réunir par thème",
       "recurrence": "weekly",
       "sourceText": "Réunir les petits éléments sur les meubles qui appartiennent à la pièce dans une autre bassine (ou dans l’entrée de la cuisine si trop d’éléments) réunir par thème",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1307,7 +1525,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Taper les coussins + secouer les plaids et les plier à leur places",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1318,7 +1538,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Mettre les housses de coussin sales dans la panière à linge + changer les housses",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1329,7 +1551,9 @@
       "description": "surfaces, baies vitrées, étagères, télévision, lampes et objets déco lourds qui restent sur place…",
       "recurrence": "monthly",
       "sourceText": "Passer la poussière (surfaces, baies vitrées, étagères, télévision, lampes et objets déco lourds qui restent sur place…)",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 8,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1340,7 +1564,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Nettoyer les surfaces",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 8,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1351,7 +1577,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer l’écran de télé",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1362,7 +1590,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer les baies vitrées",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 15,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1373,7 +1603,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Mettre en hauteur les meubles pour libérer le sol",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1384,7 +1616,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Passer l’aspirateur",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 10,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1395,7 +1629,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Passer la serpillière là où c’est possible",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 8,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1406,7 +1642,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Nettoyer un à un et remettre les éléments du salon stockée dans la bassine ou l’entrée de la cuisine à leur place",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 8,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1417,7 +1655,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Ranger les éléments de la bassine et/ou dans l’entrée de l’escalier qui n’appartiennent pas à la pièce à leur place",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "living",
@@ -1428,7 +1668,9 @@
       "description": "",
       "recurrence": null,
       "sourceText": "Ranger le matériel",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "entrance",
@@ -1439,7 +1681,9 @@
       "description": "bassine, sweefer, microfibre + nettoyant multisurface, microfibre + produit à vitre, aspirateur, serpillière, petite poubelle de l’étage",
       "recurrence": null,
       "sourceText": "Réunir le matériel nécessaire au nettoyage (bassine, sweefer, microfibre + nettoyant multisurface, microfibre + produit à vitre, aspirateur, serpillière, petite poubelle de l’étage)",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "entrance",
@@ -1450,7 +1694,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Réunir les éléments qui n’appartiennent pas à la pièce dans la bassine",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "entrance",
@@ -1461,7 +1707,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Mettre les éléments en hauteur",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "entrance",
@@ -1472,7 +1720,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Passer l’aspirateur",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "entrance",
@@ -1483,7 +1733,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Passer la serpillière",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "entrance",
@@ -1494,7 +1746,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Faire la poussière",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "entrance",
@@ -1505,7 +1759,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Nettoyer les surfaces",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "entrance",
@@ -1516,7 +1772,9 @@
       "description": "",
       "recurrence": null,
       "sourceText": "Ranger les éléments de la bassine dans les pièces qu'il faut",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "storage",
@@ -1527,7 +1785,9 @@
       "description": "bassinex2, sweefer, microfibre + nettoyant multisurface, microfibre + produit à vitre, aspirateur, serpillière, petite poubelle de l’étage",
       "recurrence": null,
       "sourceText": "Réunir le matériel nécessaire au nettoyage (bassinex2, sweefer, microfibre + nettoyant multisurface, microfibre + produit à vitre, aspirateur, serpillière, petite poubelle de l’étage)",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "storage",
@@ -1538,7 +1798,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Réunir les éléments qui n’appartiennent pas à la pièce dans la bassine 1",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "storage",
@@ -1549,7 +1811,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Sortir tous les éléments qui gênent pour passer l’aspirateur dans le couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "storage",
@@ -1560,7 +1824,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Mettre les éléments en hauteur",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "storage",
@@ -1571,7 +1837,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Mettre les éléments des surfaces dans la bassine 2",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "storage",
@@ -1582,7 +1850,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer les surfaces",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 6,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "storage",
@@ -1593,7 +1863,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Faire la poussière",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "storage",
@@ -1604,7 +1876,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Reposer les éléments sur les surfaces en enlevant la poussière dessus un par un",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 6,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "storage",
@@ -1615,7 +1889,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Passer l’aspirateur",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "storage",
@@ -1626,7 +1902,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Passer la serpillière",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "storage",
@@ -1637,7 +1915,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Ranger les éléments de la bassine dans les pièces qu'il faut",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "storage",
@@ -1648,7 +1928,9 @@
       "description": "",
       "recurrence": null,
       "sourceText": "Ranger le matériel",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "mezzanine",
@@ -1659,7 +1941,9 @@
       "description": "bassine, sweefer, microfibre + nettoyant multisurface, aspirateur, serpillière, petite poubelle de l’étage",
       "recurrence": null,
       "sourceText": "Réunir le matériel nécessaire au nettoyage (bassine, sweefer, microfibre + nettoyant multisurface, aspirateur, serpillière, petite poubelle de l’étage)",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "mezzanine",
@@ -1670,7 +1954,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Mettre les détritus à la poubelle",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "mezzanine",
@@ -1681,7 +1967,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Mettre les objets sur les surfaces dans la bassine -> couloir",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "mezzanine",
@@ -1692,7 +1980,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Retirer les éléments des meubles",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "mezzanine",
@@ -1703,7 +1993,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Faire les poussières sur les meubles",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "mezzanine",
@@ -1714,7 +2006,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Nettoyer les surfaces",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "mezzanine",
@@ -1725,7 +2019,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Faire la poussière",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "mezzanine",
@@ -1736,7 +2032,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Remettre les éléments du meuble en enlevant la poussière dessus avant de les poser",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "mezzanine",
@@ -1747,7 +2045,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Vérifier qu’il n’y ai rien sur le sol et passer l’aspirateur sur le sol",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 6,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "mezzanine",
@@ -1758,7 +2058,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Passer la serpillère",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "mezzanine",
@@ -1769,7 +2071,9 @@
       "description": "",
       "recurrence": null,
       "sourceText": "Ranger le matériel",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "corridor",
@@ -1780,7 +2084,9 @@
       "description": "bassine, sweefer, microfibre + nettoyant multisurface, aspirateur, serpillière, petite poubelle de l’étage",
       "recurrence": null,
       "sourceText": "Réunir le matériel nécessaire au nettoyage (bassine, sweefer, microfibre + nettoyant multisurface, aspirateur, serpillière, petite poubelle de l’étage)",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "corridor",
@@ -1791,7 +2097,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Mettre les détritus à la poubelle",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "corridor",
@@ -1802,7 +2110,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Mettre les objets sur les surfaces dans la bassine -> mezzanine",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "corridor",
@@ -1813,7 +2123,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Retirer les éléments du meuble",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "corridor",
@@ -1824,7 +2136,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Faire les poussières sur les meubles",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "corridor",
@@ -1835,7 +2149,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer les surfaces",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "corridor",
@@ -1846,7 +2162,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Nettoyer les portes des dressings",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 8,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "corridor",
@@ -1857,7 +2175,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Remettre les éléments du meuble en enlevant la poussière dessus avant de les poser",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 4,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "corridor",
@@ -1868,7 +2188,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Vérifier qu’il n’y ai rien sur le sol et passer l’aspirateur sur le sol",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "corridor",
@@ -1879,7 +2201,9 @@
       "description": "",
       "recurrence": "bimonthly",
       "sourceText": "Passer la serpillère",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "corridor",
@@ -1890,7 +2214,9 @@
       "description": "",
       "recurrence": null,
       "sourceText": "Ranger le matériel",
-      "reviewNote": "Étape sans couleur de fréquence"
+      "reviewNote": "Étape sans couleur de fréquence",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "garden",
@@ -1901,7 +2227,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Tondre la pelouse",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 45,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "garden",
@@ -1912,7 +2240,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Arracher les mauvaises herbes",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 30,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "laundry",
@@ -1923,7 +2253,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Réunir le linge sale et le descendre dans la buanderie",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "laundry",
@@ -1934,7 +2266,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Trier le linge par type / couleur si nécessaire",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "laundry",
@@ -1945,7 +2279,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Vérifier les poches",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "laundry",
@@ -1956,7 +2292,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Mettre un anti tâches ciblé",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "laundry",
@@ -1967,7 +2305,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Lancer une machine",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "laundry",
@@ -1978,7 +2318,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Étendre le linge",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 15,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "laundry",
@@ -1989,7 +2331,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Plier le linge",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 20,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "laundry",
@@ -2000,7 +2344,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Ranger le linge dans les pièces correspondantes",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 10,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "laundry",
@@ -2011,7 +2357,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Remettre la panière à linge à sa place",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 1,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "laundry",
@@ -2022,7 +2370,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Réaliser un cycle d’entretien de la machine à laver",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "recycling",
@@ -2034,7 +2384,9 @@
       "recurrence": "weekly",
       "sourceText": "Sortir la poubelle jaune le dimanche soir",
       "reviewNote": "",
-      "weekday": 6
+      "weekday": 6,
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "recycling",
@@ -2046,7 +2398,9 @@
       "recurrence": "weekly",
       "sourceText": "Sortir la poubelle marron le mercredi soir",
       "reviewNote": "",
-      "weekday": 2
+      "weekday": 2,
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "recycling",
@@ -2057,7 +2411,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Emmener le verre au tri",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 15,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "stock",
@@ -2068,7 +2424,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Vérifier sur la liste des produits ménagers si on manque de quelque chose",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "stock",
@@ -2079,7 +2437,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Vérifier sur la liste des nécessaires de courses s'il nous manque quelque chose",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "stock",
@@ -2090,7 +2450,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Faire la liste des repas de la semaine",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 20,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "stock",
@@ -2101,7 +2463,9 @@
       "description": "",
       "recurrence": "weekly",
       "sourceText": "Faire la liste de courses",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 15,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "equipment",
@@ -2112,7 +2476,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Vider l’aspirateur",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "equipment",
@@ -2123,7 +2489,9 @@
       "description": "",
       "recurrence": "monthly",
       "sourceText": "Changer les filtres de l’aspirateur",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "equipment",
@@ -2134,7 +2502,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Laver les microfibres",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 5,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "equipment",
@@ -2145,7 +2515,9 @@
       "description": "",
       "recurrence": "fortnightly",
       "sourceText": "Remplacer les éponges",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 2,
+      "estimatedMinutesSource": "proposal-active-time"
     },
     {
       "groupId": "admin",
@@ -2156,7 +2528,9 @@
       "description": "",
       "recurrence": "daily",
       "sourceText": "Relever le courrier",
-      "reviewNote": ""
+      "reviewNote": "",
+      "estimatedMinutes": 3,
+      "estimatedMinutesSource": "proposal-active-time"
     }
   ]
 }

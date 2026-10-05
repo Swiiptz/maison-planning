@@ -1,4 +1,4 @@
-import { validateState, updateOccurrences, updateSeries, uid, applyReorganization } from '../domain/planning.js';
+import { validateState, updateOccurrences, updateSeries, uid, applyReorganization, occurrences, mergeUnassignedPeriods, matchesDuration } from '../domain/planning.js';
 import { addDays, today } from '../domain/dates.js';
 
 export function createPlanningService(adapter, actorId) {
@@ -46,6 +46,47 @@ export function createPlanningService(adapter, actorId) {
     updateSeries(item, changes) { return save(s => updateSeries(s, item, changes)); },
     updateFuture(items, changes) { return save(s => items.reduce((next, item) => updateSeries(next, item, changes), s)); },
     restoreDates(items) { return save(s => items.reduce((next, item) => updateOccurrences(next, [item], { date: item.previousDate }, actorId), s)); },
+    removeOccurrence(item, expectedRevision) { return save(s => {
+      if (s.revision !== expectedRevision) throw new Error('Le planning a changé. Vérifie à nouveau l’action à retirer.');
+      const current = occurrences(s,item.date,item.date).find(value => value.id === item.id);
+      if (!current) throw new Error('Cette échéance n’est plus présente ce jour-là.');
+      if (current.status === 'done') throw new Error('Cette action est déjà réalisée. Son historique est conservé.');
+      const {task, ...value} = current;
+      s.overrides[current.id] = {...value, skipped:true, skippedAt:new Date().toISOString(), skippedBy:actorId};
+      return s;
+    }); },
+    clearAssignments({ taskIds, start, end, memberId = '', groupId = '', frequency = '', duration = '' }, expectedRevision) { return save(s => {
+      if (s.revision !== expectedRevision) throw new Error('Le planning a changé. Vérifie à nouveau les responsables à retirer.');
+      if (taskIds) {
+        const selected = new Set(taskIds);
+        for (const task of s.tasks) if (selected.has(task.id) && !task.archived) { task.memberId = ''; task.unassignedPeriods = []; }
+        for (const item of Object.values(s.overrides)) if (selected.has(item.taskId) && item.status !== 'done') item.memberId = '';
+      } else {
+        const items = occurrences(s,start,end).filter(item => item.status !== 'done' && item.memberId && (!memberId || item.memberId === memberId) && (!groupId || item.task.groupId === groupId) && (!frequency || item.task.recurrence === frequency) && matchesDuration(item.task,duration));
+        const byTask = new Map();
+        for (const item of items) {
+          if (!byTask.has(item.taskId)) byTask.set(item.taskId,[]);
+          byTask.get(item.taskId).push({start:item.date,end:item.date});
+          if (s.overrides[item.id]) s.overrides[item.id].memberId = '';
+        }
+        for (const task of s.tasks) if (byTask.has(task.id)) task.unassignedPeriods = mergeUnassignedPeriods([...(task.unassignedPeriods ?? []),...byTask.get(task.id)]);
+      }
+      return s;
+    }); },
+    restoreAssignments(snapshot, expectedRevision) { return save(s => {
+      if (s.revision !== expectedRevision) throw new Error('Le planning a changé. Annulation impossible sans écraser une modification.');
+      s.tasks = structuredClone(snapshot.tasks); s.overrides = structuredClone(snapshot.overrides); return s;
+    }); },
+    applyDurationSuggestions(suggestions, expectedRevision) { return save(s => {
+      if (s.revision !== expectedRevision) throw new Error('Les tâches ont changé. Vérifie à nouveau les durées.');
+      for (const suggestion of suggestions) {
+        const task = s.tasks.find(task => task.id === suggestion.taskId);
+        if (!task || task.archived || task.estimatedMinutes) continue;
+        task.estimatedMinutes = suggestion.minutes;
+        task.estimatedMinutesSource = 'proposal-active-time';
+      }
+      return s;
+    }); },
     createTask(task) { return save(s => { s.tasks.push({ ...task, id: uid(), archived: false, until: null, sourceFile: '', reviewNote: '' }); return s; }); },
     editTask(taskId, changes) { return save(s => { const task = s.tasks.find(t => t.id === taskId); if (!task) throw new Error('Tâche introuvable.'); Object.assign(task, changes); return s; }); },
     archive(taskId, date) { return save(s => {

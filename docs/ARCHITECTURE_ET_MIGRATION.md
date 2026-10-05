@@ -123,3 +123,9 @@ La migration PostgreSQL reprendra les tables de comptes métier, familles, appar
 - `invitations/{token}` : destinataire vérifié, échéance, créateur, date serveur et auteur d'acceptation. Pas de liste publique ni d'envoi automatique d'email.
 
 `npm run test:firestore` exécute les scénarios contre l'émulateur local du projet fictif `demo-maison-planning`. Démarrer au préalable `firebase emulators:start --only firestore --project demo-maison-planning` avec Java 21 ou supérieur. Le script refuse un hôte distant et ne cible jamais la base réelle.
+
+### Exceptions sans responsable
+
+Une tâche peut conserver son responsable habituel tout en ayant des `unassignedPeriods` : intervalles métier de dates où le responsable par défaut est vide. Une affectation explicite d'occurrence reste prioritaire. Le retrait groupé rassemble les dates concernées en intervalles et retire également les affectations explicites non réalisées concernées. Cela évite de créer un document Firestore pour chacune des centaines d'échéances d'un mois ; les réalisations existantes restent inchangées. Ces intervalles et les exceptions suivent l'export métier et pourront être convertis en relations SQL.
+
+Une échéance retirée ponctuellement conserve son identifiant et sa date planifiée dans les exceptions, avec `skipped: true`, la date du retrait et son auteur. Le domaine l'exclut des occurrences et des compteurs, sans arrêter la série. L'export et les adaptateurs conservent cette exception pour la migration. Le service refuse de retirer une réalisation existante.
