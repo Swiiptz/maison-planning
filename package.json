@@ -7,8 +7,9 @@
     "dev": "node scripts/serve.mjs",
     "build": "node scripts/build.mjs",
     "apercu": "node scripts/preview.mjs",
-    "test": "node --test --test-isolation=none tests/*.test.mjs",
-    "check": "node scripts/check.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "check": "node scripts/check.mjs",
+    "test:firestore": "node scripts/test-firestore.mjs"
   },
   "engines": { "node": ">=22.14" }
 }

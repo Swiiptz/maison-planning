@@ -35,8 +35,10 @@ Lors d'une modification d'une série, proposer explicitement « Cette échéance
 
 ## Aujourd'hui et catalogue
 
-L'écran « Aujourd'hui » présente le récapitulatif personnel ou du foyer, les tâches dues et les retards. Le catalogue présente les groupes des PDF, une recherche et les réglages des répétitions. Les actions sans date ou sans responsable restent faciles à retrouver pour terminer la planification.
+L'écran « Aujourd'hui » présente le récapitulatif personnel avec cercle de pourcentage, un choix du jour actuel ou de la semaine en cours, les tâches dues et les retards repliés. Le catalogue présente les groupes des PDF, une recherche et les réglages des répétitions. Les actions sans date ou sans responsable restent faciles à retrouver pour terminer la planification.
 
 ## Points restant à régler
 
 Le compte et le service Firebase seront configurés au moment de la réalisation. Les membres et dates de départ seront renseignés au premier usage. Les étapes sans couleur et les fragments de ligne de fréquences différentes devront être résolus pendant la constitution du catalogue.
+
+Les parcours actuels ajoutent un report discret sur les cartes et une proposition d’équilibrage semaine / mois avec aperçu, confirmation et annulation. Les SVG initiaux restent des documents de cadrage et ne représentent pas toutes les évolutions.
