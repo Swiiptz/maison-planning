@@ -22,6 +22,7 @@ export async function createRuntime({ demo = false } = {}) {
   const infrastructure = await createFirebaseInfrastructure(config.firebase);
   return {
     mode: 'shared', auth: infrastructure.auth,
+    durationSuggestions: catalog.tasks.map(task => ({ id: task.id, title: task.title, groupId: task.groupId, estimatedMinutes: task.estimatedMinutes })),
     memberId: null, households: [], favoriteHouseholdId: null,
     async refreshHouseholds() { const result = await infrastructure.listHouseholds(); this.households = result.households; this.favoriteHouseholdId = result.favoriteHouseholdId; return this.households; },
     async setFavorite(householdId) { await infrastructure.setFavoriteHousehold(householdId); this.favoriteHouseholdId = householdId; },
@@ -45,6 +46,7 @@ export async function createRuntime({ demo = false } = {}) {
       return this.open(membership.householdId);
     },
     async joinHousehold(token) { const membership = await infrastructure.joinHousehold(token); return this.open(membership.householdId); },
+    async pendingInvitation(memberId, householdId) { return infrastructure.getPendingInvitation(householdId, memberId); },
     async invite(memberId, email, householdId) { return infrastructure.inviteMember(householdId, memberId, email); },
     onError(fn) { return adapter?.onError(fn) ?? (() => {}); },
     dispose() { adapter?.dispose(); },

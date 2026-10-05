@@ -109,7 +109,17 @@ export async function createFirebaseInfrastructure(config) {
         return { householdId, memberId };
       });
     }),
+    getPendingInvitation: guarded(async (householdId, memberId) => {
+      const query = dbSdk.query(dbSdk.collection(db, 'invitations'), dbSdk.where('householdId', '==', householdId), dbSdk.where('memberId', '==', memberId));
+      const snapshot = await dbSdk.getDocs(query);
+      return snapshot.docs.map(doc => ({ token: doc.id, ...doc.data() }))
+        .filter(value => !value.usedBy && value.expiresAt?.toMillis() > Date.now())
+        .sort((a, b) => b.expiresAt.toMillis() - a.expiresAt.toMillis())
+        .map(value => ({ token: value.token, email: value.email, expiresAt: value.expiresAt.toDate().toISOString() }))[0] ?? null;
+    }),
     inviteMember: guarded(async (householdId, memberId, email) => {
+      const destination = email.trim().toLowerCase();
+      if (destination === auth.currentUser.email?.trim().toLowerCase()) throw new Error('Tu fais déjà partie de cette famille : tu ne peux pas t’inviter toi-même.');
       if ((await dbSdk.getDoc(entityRef(householdId, 'accountLinks', memberId))).exists()) throw new Error('Ce membre possède déjà un compte connecté.');
       const token = crypto.randomUUID();
       await dbSdk.setDoc(dbSdk.doc(db, 'invitations', token), { householdId, memberId, email: email.trim().toLowerCase(), createdBy: auth.currentUser.uid, createdAt: dbSdk.serverTimestamp(), expiresAt: dbSdk.Timestamp.fromMillis(Date.now() + 7 * 86400000) });

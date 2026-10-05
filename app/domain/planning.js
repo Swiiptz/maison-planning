@@ -53,6 +53,20 @@ export function isDue(task, date) {
   return months % every === 0 && addMonths(task.anchor, months) === date;
 }
 
+export function defaultResponsible(task, date) {
+  return task.unassignedPeriods?.some(period => period.start <= date && period.end >= date) ? '' : task.memberId ?? '';
+}
+export function mergeUnassignedPeriods(periods) {
+  const sorted = periods.map(period => ({ ...period })).sort((a,b) => a.start.localeCompare(b.start));
+  const result = [];
+  for (const period of sorted) {
+    const previous = result.at(-1);
+    if (previous && period.start <= addDays(previous.end, 1)) previous.end = previous.end > period.end ? previous.end : period.end;
+    else result.push(period);
+  }
+  return result;
+}
+
 export function occurrences(state, start, end) {
   const result = new Map();
   const dates = datesBetween(start, end);
@@ -61,15 +75,15 @@ export function occurrences(state, start, end) {
       if (!isDue(task, date)) continue;
       const id = occurrenceId(task.id, date);
       const override = state.overrides[id];
-      const item = { id, taskId: task.id, scheduledDate: date, date, memberId: task.memberId ?? '', status: 'todo', ...override, task };
-      if (!item.mergedInto && item.date >= start && item.date <= end) result.set(id, item);
+      const item = { id, taskId: task.id, scheduledDate: date, date, memberId: defaultResponsible(task, override?.date ?? date), status: 'todo', ...override, task };
+      if (!item.skipped && !item.mergedInto && item.date >= start && item.date <= end) result.set(id, item);
     }
   }
   // Include occurrences moved into the visible range, even from a different month.
   for (const override of Object.values(state.overrides)) {
     const task = state.tasks.find(t => t.id === override.taskId);
-    if (!task || override.mergedInto || (override.status !== 'done' && !isDue(task, override.scheduledDate)) || override.date < start || override.date > end) continue;
-    result.set(override.id, { memberId: task.memberId ?? '', status: 'todo', ...override, task });
+    if (!task || override.skipped || override.mergedInto || (override.status !== 'done' && !isDue(task, override.scheduledDate)) || override.date < start || override.date > end) continue;
+    result.set(override.id, { memberId: defaultResponsible(task, override.date), status: 'todo', ...override, task });
   }
   return [...result.values()].sort((a, b) => a.date.localeCompare(b.date) || a.task.title.localeCompare(b.task.title, 'fr'));
 }
@@ -107,6 +121,7 @@ export function updateOccurrences(state, items, patch, actorId, { merge = false 
   if (collisions.length && !merge) throw new Error('Cette tâche existe déjà ce jour-là. Confirme le regroupement ou annule le déplacement.');
   const next = structuredClone(state);
   for (const item of items) {
+    if (item.skipped || next.overrides[item.id]?.skipped) throw new Error('Cette échéance a été retirée. Actualise le planning.');
     if (item.mergedInto || next.overrides[item.id]?.mergedInto) throw new Error('Cette échéance a été regroupée. Actualise le planning.');
     if (patch.date && item.status === 'done') continue;
     const value = { id: item.id, taskId: item.taskId, scheduledDate: item.scheduledDate, date: item.date, memberId: item.memberId, status: item.status, ...(next.overrides[item.id] ?? {}), ...patch };
@@ -310,6 +325,10 @@ export function validateState(state) {
   for (const member of state.members) if (typeof member.name !== 'string' || !member.name.trim() || member.name.length > 100) throw new Error('Membre invalide.');
   const tasks = new Map(state.tasks.map(t => [t.id, t]));
   for (const task of state.tasks) {
+    if (task.unassignedPeriods !== undefined) {
+      if (!Array.isArray(task.unassignedPeriods) || task.unassignedPeriods.length > 500) throw new Error('Exceptions de responsable invalides.');
+      for (const period of task.unassignedPeriods) { parseDate(period.start); parseDate(period.end); if (period.start > period.end) throw new Error('Période sans responsable invalide.'); }
+    }
     if (typeof task.title !== 'string' || !task.title.trim() || task.title.length > 600 || !groups.has(task.groupId) || (task.memberId && !members.has(task.memberId)) || (task.recurrence && !RECURRENCES[task.recurrence])) throw new Error('Tâche invalide.');
     if (task.seriesId !== undefined && (typeof task.seriesId !== 'string' || !task.seriesId.length || task.seriesId.length > 100)) throw new Error('Série invalide.');
     if (task.rotationEnabled !== undefined && typeof task.rotationEnabled !== 'boolean') throw new Error('Rotation invalide.');
@@ -334,6 +353,7 @@ export function validateState(state) {
   for (const session of state.sessions) if (typeof session.title !== 'string' || !session.title.trim() || session.title.length > 160 || !groups.has(session.groupId) || !Array.isArray(session.taskIds) || session.taskIds.some(id => !tasks.has(id))) throw new Error('Séance invalide.');
   for (const [key, o] of Object.entries(state.overrides)) {
     if (!tasks.has(o.taskId) || key !== occurrenceId(o.taskId, o.scheduledDate) || o.id !== key || !['todo', 'done'].includes(o.status) || (o.memberId && !members.has(o.memberId))) throw new Error('Échéance invalide.');
+    if (o.skipped !== undefined && (typeof o.skipped !== 'boolean' || (o.skipped && o.status === 'done'))) throw new Error('Retrait d’échéance invalide.');
     parseDate(o.date); parseDate(o.scheduledDate);
     if (o.subtaskDone !== undefined && (!Array.isArray(o.subtaskDone) || o.subtaskDone.length > 80 || new Set(o.subtaskDone).size !== o.subtaskDone.length || o.subtaskDone.some(id => typeof id !== 'string' || !/^[a-zA-Z0-9_-]{1,100}$/.test(id)))) throw new Error('Progression des sous-tâches invalide.');
     if (o.mergedInto !== undefined) {

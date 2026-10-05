@@ -88,7 +88,7 @@ service cloud.firestore {
     match /invitations/{token} {
       allow get: if signedIn() && (isOwner(resource.data.householdId)
         || (request.auth.token.email_verified == true && resource.data.email == request.auth.token.email.lower()));
-      allow list: if false;
+      allow list: if isOwner(resource.data.householdId);
       allow create: if signedIn()
         && request.resource.data.keys().hasOnly(['householdId', 'memberId', 'email', 'createdBy', 'createdAt', 'expiresAt'])
         && isOwner(request.resource.data.householdId)
@@ -98,6 +98,7 @@ service cloud.firestore {
         && request.resource.data.expiresAt <= request.time + duration.value(8, 'd')
         && request.resource.data.email is string
         && request.resource.data.email == request.resource.data.email.lower()
+        && request.resource.data.email != request.auth.token.email.lower()
         && !exists(linkPath(request.resource.data.householdId, request.resource.data.memberId))
         && exists(/databases/$(database)/documents/households/$(request.resource.data.householdId)/members/$(request.resource.data.memberId));
       allow update: if signedIn()

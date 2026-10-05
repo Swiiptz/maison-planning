@@ -38,6 +38,10 @@ assert.equal((await request(guest,`/households/${family}/members/invitee`)).stat
 const token=`${prefix}-invite`;
 const invitation={householdId:family,memberId:'invitee',email:email(guest),createdBy:owner,expiresAt:new Date(Date.now()+7*86400000)};
 await allow(owner,[write(`invitations/${token}`,invitation,null,true)]);
+await deny(owner,[write(`invitations/${prefix}-self`,{...invitation,email:email(owner)},null,true)]);
+const scopedQuery={structuredQuery:{from:[{collectionId:'invitations'}],where:{compositeFilter:{op:'AND',filters:[{fieldFilter:{field:{fieldPath:'householdId'},op:'EQUAL',value:{stringValue:family}}},{fieldFilter:{field:{fieldPath:'memberId'},op:'EQUAL',value:{stringValue:'invitee'}}}]}}}};
+assert.equal((await request(owner,':runQuery',scopedQuery)).status,200);
+assert.equal((await request(outsider,':runQuery',scopedQuery)).status,403);
 assert.equal((await request(guest,`/invitations/${token}`)).status,200);
 assert.equal((await request(outsider,`/invitations/${token}`)).status,403);
 function join(uid,code=token,mid='invitee') {return [write(`households/${family}`,{access:{[uid]:{memberId:mid,invitationId:code}}},[`access.${uid}`]),write(`households/${family}/accountLinks/${mid}`,{uid,memberId:mid}),write(`identities/${uid}/memberships/${family}`,{householdId:family,memberId:mid}),write(`invitations/${code}`,{usedBy:uid},['usedBy'])];}

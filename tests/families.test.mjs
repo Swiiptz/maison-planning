@@ -8,7 +8,7 @@ async function harness(favorite='b') {
  const infrastructure={auth:{current:()=>({name:'Moi'})},listHouseholds:async()=>({households,favoriteHouseholdId:favorite}),setFavoriteHousehold:async id=>{favorite=id;favorites.push(id);},createDataAdapter:id=>({householdId:id,dispose:()=>disposed.push(id)}),createHousehold:async initial=>{households.push({householdId:initial.household.id,memberId:'me',canInvite:true});return {householdId:initial.household.id,memberId:'me'};},joinHousehold:async()=>({householdId:'a',memberId:'alice'})};
  let source=await readFile(new URL('../app/services/bootstrap.js',import.meta.url),'utf8');
  source=source.replace(/^import .*;\r?\n/gm,'').replace('export async function','async function').replace("const { createFirebaseInfrastructure } = await import('../adapters/firebase.js');",'const createFirebaseInfrastructure = async () => globalThis.infrastructure;').replaceAll('import.meta.url','"https://example.test/app/"');
- const context=vm.createContext({infrastructure,URL,config:{provider:'firebase',firebase:{}},fetch:async()=>({ok:true,json:async()=>({})}),seedState:()=>({household:{id:'new'},members:[{id:'me'}]}),createPlanningService:(adapter,memberId)=>{opened.push([adapter.householdId,memberId]);return {householdId:adapter.householdId};}});
+ const context=vm.createContext({infrastructure,URL,config:{provider:'firebase',firebase:{}},fetch:async()=>({ok:true,json:async()=>({tasks:[]})}),seedState:()=>({household:{id:'new'},members:[{id:'me'}]}),createPlanningService:(adapter,memberId)=>{opened.push([adapter.householdId,memberId]);return {householdId:adapter.householdId};}});
  vm.runInContext(source+'\nglobalThis.factory=createRuntime;',context);
  return {runtime:await context.factory(),opened,disposed,favorites};
 }
