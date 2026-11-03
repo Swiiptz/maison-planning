@@ -450,3 +450,16 @@ dialog[open]::backdrop{animation:maison-backdrop .2s ease-out}
 .remove-occurrence-options{margin-top:18px;padding-top:12px;border-top:1px solid var(--line)}
 .remove-occurrence-options summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-size:.8125rem;color:var(--muted)}
 .remove-occurrence-options details>button{display:block;text-align:left;min-height:44px;line-height:1.6;width:100%}
+
+/* Week board: keep the 7 days visible on laptop widths and never clip card tools. */
+@media(min-width:851px) and (max-width:1550px){.week-board{grid-template-columns:repeat(7,minmax(108px,1fr));gap:7px}.week-board .task-card{padding-left:11px;padding-right:6px}.week-board .card-kind{font-size:.625rem;letter-spacing:0}.week-board .card-kind .icon{display:none}.week-board .card-top{gap:0}}
+.card-kind{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card-tools{flex-shrink:0}
+.week-board .card-tools{gap:0}.week-board .card-more{width:24px;min-width:24px;height:30px}.week-board .drag-handle{width:20px;min-width:20px;height:30px}
+
+/* Phone agenda: reach the tasks sooner. The week strip already handles date navigation. */
+@media(max-width:850px){.agenda-aside:not([hidden]),.agenda-panel-controls>[data-action=toggle-calendar]{display:none}.period-control{grid-template-columns:40px minmax(0,1fr) 40px auto}.period-control>.subtle-button{grid-column:auto;padding:8px 12px}.time-overview small{display:none}.time-overview{padding:10px 14px}}
+
+.install-hint{margin-top:18px;font-size:.8125rem;line-height:1.7}
+.install-hint .text-button{display:inline-flex;align-items:center;gap:7px;font-size:.8125rem;font-weight:500;color:var(--muted)}
+.install-hint .icon{width:16px;height:16px}
