@@ -9,3 +9,7 @@ coverage/
 
 .tools/
 *-debug.log
+
+# Documents personnels
+*.pdf
+maison-*.json
