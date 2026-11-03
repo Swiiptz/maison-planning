@@ -12,6 +12,21 @@ let subtaskDraft = [];
 let weekdayDraft = new Set(), weekdaysTouched = false;
 const WEEKDAYS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 const supportsWeekdays = recurrence => ['daily', 'weekly', 'fortnightly'].includes(recurrence);
+
+// Installable app, phones only: the browser's own prompt is kept and offered discreetly in Réglages.
+let installPrompt = null;
+const installed = () => globalThis.matchMedia?.('(display-mode: standalone)').matches || globalThis.navigator?.standalone === true;
+const iosBrowser = () => /iphone|ipad|ipod/i.test(globalThis.navigator?.userAgent ?? '') || (globalThis.navigator?.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+if (globalThis.navigator?.serviceWorker && (location.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(location.hostname))) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); installPrompt = event; if (ui.page === 'settings') render(); });
+window.addEventListener('appinstalled', () => { installPrompt = null; if (ui.page === 'settings') render(); });
+const phone = () => globalThis.matchMedia?.('(pointer: coarse) and (max-width: 850px)').matches === true;
+function installHTML() {
+  if (installed() || !phone()) return '';
+  if (installPrompt) return `<p class="install-hint">${button('install-app', `${icon('home')}Installer l’application sur cet appareil`, 'text-button')}</p>`;
+  if (iosBrowser()) return '<p class="install-hint muted">Pour l’installer sur cet appareil : bouton Partager, puis « Sur l’écran d’accueil ».</p>';
+  return '';
+}
 function weekdayLabelHTML(task) {
   return supportsWeekdays(task.recurrence) && task.weekdays?.length ? `<span class="weekday-label">${task.weekdays.length === 7 ? 'Tous les jours' : task.weekdays.map(day => WEEKDAYS[day].slice(0, 3)).join(' · ')}</span>` : '';
 }
@@ -409,7 +424,7 @@ function exportStatistics() {
 }
 
 function settingsHTML() {
-  return `<div class="settings-grid"><section class="settings-panel"><div class="eyebrow">Le foyer</div><h2>${esc(state.household.name)}</h2><p>Les tâches et les séances peuvent être attribuées à chacun.</p><div class="members-list">${state.members.map(m => `<div class="member-row"><span class="avatar">${esc(initials(m.name))}</span><strong>${esc(m.name)}</strong>${runtime.mode === 'demo' || runtime.permissions?.canInvite || m.id === runtime.memberId ? button('rename-member', 'Renommer', 'text-button', `data-id="${esc(m.id)}"`) : ''}${runtime.permissions?.canInvite && m.id !== runtime.memberId ? button('invite', 'Invitation', 'subtle-button', `data-id="${esc(m.id)}"`) : ''}</div>`).join('')}</div>${runtime.mode === 'demo' || runtime.permissions?.canInvite ? button('add-member', `${icon('plus')}Préparer une invitation`, 'subtle-button') : ''}</section><section class="settings-panel"><div class="eyebrow">Les pièces</div><h2>Des repères à votre image</h2><p>La couleur d’une pièce reste indépendante de la récurrence.</p><div class="room-settings">${state.groups.filter(g => g.kind === 'room').map(g => `<label><span>${esc(g.name)}</span><input type="color" data-group-color="${g.id}" value="${g.color}" aria-label="Couleur de ${esc(g.name)}"></label>`).join('')}</div></section><section class="settings-panel"><div class="eyebrow">Sauvegarde</div><h2>Garder une copie</h2><p>Exporte les tâches, les répétitions et l’historique du foyer dans un fichier que tu pourras réimporter.</p><div class="button-row">${button('export', 'Exporter les données', 'primary-button')}${button('import', 'Importer une sauvegarde', 'subtle-button')}</div></section><section class="settings-panel"><div class="eyebrow">Connexion</div><h2>${runtime.mode === 'demo' ? 'Démonstration locale' : 'Mon compte'}</h2><p>${runtime.mode === 'demo' ? 'Ces données sont enregistrées uniquement dans ce navigateur. Les membres sont des exemples.' : `Connecté avec ${esc(runtime.auth.current()?.email)}. Les données sont partagées avec les membres autorisés du foyer.`}</p>${runtime.mode === 'shared' ? `<div class="account-family"><span>Famille active</span><strong>${esc(state.household.name)}</strong>${button('families', 'Mes familles', 'subtle-button')}</div>` : ''}${runtime.mode === 'demo' ? button('connect', 'Connecter mon foyer', 'primary-button') : button('sign-out', `${icon('logout')}Se déconnecter`, 'subtle-button')}</section></div>`;
+  return `<div class="settings-grid"><section class="settings-panel"><div class="eyebrow">Le foyer</div><h2>${esc(state.household.name)}</h2><p>Les tâches et les séances peuvent être attribuées à chacun.</p><div class="members-list">${state.members.map(m => `<div class="member-row"><span class="avatar">${esc(initials(m.name))}</span><strong>${esc(m.name)}</strong>${runtime.mode === 'demo' || runtime.permissions?.canInvite || m.id === runtime.memberId ? button('rename-member', 'Renommer', 'text-button', `data-id="${esc(m.id)}"`) : ''}${runtime.permissions?.canInvite && m.id !== runtime.memberId ? button('invite', 'Invitation', 'subtle-button', `data-id="${esc(m.id)}"`) : ''}</div>`).join('')}</div>${runtime.mode === 'demo' || runtime.permissions?.canInvite ? button('add-member', `${icon('plus')}Préparer une invitation`, 'subtle-button') : ''}</section><section class="settings-panel"><div class="eyebrow">Les pièces</div><h2>Des repères à votre image</h2><p>La couleur d’une pièce reste indépendante de la récurrence.</p><div class="room-settings">${state.groups.filter(g => g.kind === 'room').map(g => `<label><span>${esc(g.name)}</span><input type="color" data-group-color="${g.id}" value="${g.color}" aria-label="Couleur de ${esc(g.name)}"></label>`).join('')}</div></section><section class="settings-panel"><div class="eyebrow">Sauvegarde</div><h2>Garder une copie</h2><p>Exporte les tâches, les répétitions et l’historique du foyer dans un fichier que tu pourras réimporter.</p><div class="button-row">${button('export', 'Exporter les données', 'primary-button')}${button('import', 'Importer une sauvegarde', 'subtle-button')}</div></section><section class="settings-panel"><div class="eyebrow">Connexion</div><h2>${runtime.mode === 'demo' ? 'Démonstration locale' : 'Mon compte'}</h2><p>${runtime.mode === 'demo' ? 'Ces données sont enregistrées uniquement dans ce navigateur. Les membres sont des exemples.' : `Connecté avec ${esc(runtime.auth.current()?.email)}. Les données sont partagées avec les membres autorisés du foyer.`}</p>${runtime.mode === 'shared' ? `<div class="account-family"><span>Famille active</span><strong>${esc(state.household.name)}</strong>${button('families', 'Mes familles', 'subtle-button')}</div>` : ''}${runtime.mode === 'demo' ? button('connect', 'Connecter mon foyer', 'primary-button') : button('sign-out', `${icon('logout')}Se déconnecter`, 'subtle-button')}</section></div>${installHTML()}`;
 }
 
 function render() {
@@ -747,6 +762,11 @@ document.addEventListener('click', async event => {
   }
   else if (action === 'invite') await perform(() => openInvitation(target.dataset.id));
   else if (action === 'copy-invitation') await perform(async () => { await navigator.clipboard.writeText(target.dataset.token); }, 'Code copié.');
+  else if (action === 'install-app') {
+    const prompt = installPrompt; installPrompt = null;
+    if (prompt) { prompt.prompt(); await prompt.userChoice.catch(() => null); }
+    render();
+  }
   else if (action === 'export') {
     const blob = new Blob([service.exportData()], { type: 'application/json' });
     const url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = `maison-${today()}.json`; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); notify('Sauvegarde exportée.');
